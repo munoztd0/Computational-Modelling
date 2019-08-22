@@ -1,27 +1,18 @@
 % This function generates the likelihood of each model/paramters
-%need to adapt this !
+
 function [PE,pc,Q,ch,r] = compute_model_simu(params,s,b,model)
 
 
 %% Parameters
-% beta1 = params(1);                                                             % choice temperature
-% beta2 = params(2);                                                             % choice temperature
-% lr1   = params(3);                                                             % supraliminal learning rate
-% lr2   = params(4);                                                             % subliminal learning rate
-% pi1   = params(5);
-% pi2   = params(6);
-
-%# this is gonna me a mess to adapt#%
-
-b = params(1);           % softmax inverse temperature
-lr = params(2);          % learning rate
-lambda = params(3);      % eligibility trace decay
-w_low = params(4);           % mixing weight
-w_high0 = params(5);           % mixing weight
-w_high1 = params(6);           % mixing weight
+beta1 = params(1);                                                             % choice temperature
+beta2 = params(2);                                                             % choice temperature
+lr1   = params(3);                                                             % supraliminal learning rate
+lr2   = params(4);                                                             % subliminal learning rate
+pi1   = params(5);
+pi2   = params(6);
 
 
-ntrials = length(b); %# changing hard coded 1200 by ntrials 
+ntrials = length(b); 
 
 %% pre-Allocate
 Q    = zeros(ntrials,2);

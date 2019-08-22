@@ -1,7 +1,7 @@
 function results = wrapper
 
-load ../groupdata
-
+load ~/Project/Kool/data/experiment_1/groupdata
+addpath ~/Project/mfit/
 % simulation parameters
 
 nstarts = 100;
