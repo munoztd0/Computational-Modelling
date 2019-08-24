@@ -1,6 +1,6 @@
 % This function generates the likelihood of each model/paramters
 
-function lik = compute_model_ll(params,con, output, rews,model)
+function lik = compute_model_ll(params,con, output, rews, model)
 
 
 ntrials = length(con); 
@@ -25,160 +25,140 @@ Qmf_terminal = zeros(3,1);
 % Q(s,a): state-action value function for Q-learning
 
 
-
-
-
 % loop through trials
 for t = 1:length(con)
     
-   if con(k) == 1  % high effort trial
-        
-        S = output.S;
-        A = output.A;
-        R = outpur.R;
-        s1 = output.s1_stims
-        % level 0
-        
-        Qmb_middle = zeros(3,2);
-        
-        for state = 1:3
-            Qmb_middle(state,:) = subdata.Tm_middle(subdata.middle_stims{2}(state,:),:)*Qmf_terminal;   % find model-based values at stage 1
-        end
-                
-        Qmb_top = subdata.Tm_top(subdata.stims0(t,:),:)*max(Qmb_middle,[],2);                           % find model-based values at stage 0
-        
-        Q_top = w_high0*Qmb_top' + (1-w_high0)*Qmf_top(subdata.stims0(t,:));                            % mix TD and model value
-        action = subdata.choice0(t)==subdata.stims0(t,:);
-        LL = LL + b_high0*Q_top(action)-logsumexp(b_high0*Q_top);
-        
-        % level 1
-        stims1 = subdata.stims1(t,1:2);
-        w = w_high1;
-        b = b_high1;
-        
-    else % low effort trial
-        
-        stims1 = subdata.stims1(t,:);
-        w = w_low;
-        b = b_low;
-        
-    end
+    if model==1
+             %             lik = lik + log(1./(1+exp(-beta1 *dQ)));
+             %             Q(a(i)) = Q(a(i)) + lr1 * PE; % simple RL
+       if con(t) == 1  % high effort trial
+
+            S1 = output.high.S(:,1);
+            S2 = output.high.S(:,2);
+            S3 = output.high.S(:,3);
+            
+            A1 = output.high.A(:,1); %choice 0
+            A2 = output.high.A(:,2); %choice 1
+            R = output.high.R;
+            stims1 = output.high.s1_stims;
     
-    % level 1
-    Qmb_middle = subdata.Tm_middle(stims1,:)*Qmf_terminal;                     % find model-based values at stage 0
-    Q_middle = w*Qmb_middle + (1-w)*Qmf_middle(stims1);                        % mix TD and model value
-    action = subdata.choice1(t)==stims1;
-    LL = LL + b*Q_middle(action)-logsumexp(b*Q_middle);
+            dtQ = zeros(3,1);
     
+
+            % top level
+            dtQ(1) = Qmf_middle(A2(t)) - Qmf_top(A1(t));
+            Qmf_top(A1(t)) = Qmf_top(A1(t)) + lr*dtQ(1);
+       
     
-    %% updating
+            %middle level
+            dtQ(2) = Qmf_terminal(S2(t)) - Qmf_middle(A2(t)); %S2 ?
+            Qmf_middle(A2(t)) = Qmf_middle(A2(t)) + lr*dtQ(2);
+            %if subdata.high_effort(t)==1
+            Qmf_top(A1(t)) = Qmf_top(A1(t)) + lambda*lr*dtQ(2);
+            %end
+
+            %terminal level
+            dtQ(3) = R(t) - Qmf_terminal(S2(t));
+            Qmf_terminal(S2(t)) = Qmf_terminal(S2(t)) + lr*dtQ(3);
+            Qmf_middle(A2(t)) = Qmf_middle(A2(t)) + lambda*lr*dtQ(3);
+            %if subdata.high_effort(t)==1
+            Qmf_top(A1(t)) = Qmf_top(A1(t)) + (lambda^2)*lr*dtQ(3);
+            %end
+            
+            %something wrong with stims1
+            Qmb_middle = subdata.Tm_middle(stims1,:)*Qmf_terminal;                     % find model-based values at stage 0
+            Q_middle = w*Qmb_middle + (1-w)*Qmf_middle(stims1);                        % mix TD and model value
+            action = A1(t)==stims1;
+            LL = LL + b*Q_middle(action)-logsumexp(b*Q_middle);
     
-    dtQ = zeros(3,1);
+            
     
-    if subdata.high_effort(t)==1
-        % top level
-        dtQ(1) = Qmf_middle(subdata.choice1(t)) - Qmf_top(subdata.choice0(t));
-        Qmf_top(subdata.choice0(t)) = Qmf_top(subdata.choice0(t)) + lr*dtQ(1);
-    end
-    
-    %middle level
-    dtQ(2) = Qmf_terminal(subdata.state2(t)) - Qmf_middle(subdata.choice1(t));
-    Qmf_middle(subdata.choice1(t)) = Qmf_middle(subdata.choice1(t)) + lr*dtQ(2);
-    if subdata.high_effort(t)==1
-        Qmf_top(subdata.choice0(t)) = Qmf_top(subdata.choice0(t)) + lambda*lr*dtQ(2);
-    end
-    
-    %terminal level
-    dtQ(3) = subdata.points(t) - Qmf_terminal(subdata.state2(t));
-    Qmf_terminal(subdata.state2(t)) = Qmf_terminal(subdata.state2(t)) + lr*dtQ(3);
-    Qmf_middle(subdata.choice1(t)) = Qmf_middle(subdata.choice1(t)) + lambda*lr*dtQ(3);
-    if subdata.high_effort(t)==1
-        Qmf_top(subdata.choice0(t)) = Qmf_top(subdata.choice0(t)) + (lambda^2)*lr*dtQ(3);
-    end
-    
-end
+      end
 
 %% Kool
-
-% initialization
-Qmf1 = zeros(1,3);
-Qmf2 = zeros(3,2);
-Qmf3 = zeros(3,1);                    % Q(s,a): state-action value function for Q-learning
-Tm = cell(2,1);
-Tm{1} = [1 0 0; 0 1 0; 0 0 1];        % transition matrix
-Tm{2}(:,:,1) = [1 0 0; 0 1 0];        % transition matrix
-Tm{2}(:,:,2) = [1 0 0; 0 0 1];        % transition matrix
-Tm{2}(:,:,3) = [0 1 0; 0 0 1];        % transition matrix
-N = size(rews,1);
-output.A = zeros(N,2);
-output.R = zeros(N,1);
-output.S = zeros(N,3);
-
-Qmb2 = zeros(3,2);
-
-% loop through trials
-for t = 1:ntrials
-    
-    s1_stims = datasample(1:3,2,'Replace',false);
-    
-    Tm1 = Tm{1}(s1_stims,:); % temporary Tm1
-    
-    for state = 1:3
-        Qmb2(state,:) = Tm{2}(:,:,state)*Qmf3;
+% 
+% % initialization
+% Qmf1 = zeros(1,3);
+% Qmf2 = zeros(3,2);
+% Qmf3 = zeros(3,1);                    % Q(s,a): state-action value function for Q-learning
+% Tm = cell(2,1);
+% Tm{1} = [1 0 0; 0 1 0; 0 0 1];        % transition matrix
+% Tm{2}(:,:,1) = [1 0 0; 0 1 0];        % transition matrix
+% Tm{2}(:,:,2) = [1 0 0; 0 0 1];        % transition matrix
+% Tm{2}(:,:,3) = [0 1 0; 0 0 1];        % transition matrix
+% N = size(rews,1);
+% output.A = zeros(N,2);
+% output.R = zeros(N,1);
+% output.S = zeros(N,3);
+% 
+% Qmb2 = zeros(3,2);
+% 
+% % loop through trials
+% for t = 1:ntrials
+%     
+%     s1_stims = datasample(1:3,2,'Replace',false);
+%     
+%     Tm1 = Tm{1}(s1_stims,:); % temporary Tm1
+%     
+%     for state = 1:3
+%         Qmb2(state,:) = Tm{2}(:,:,state)*Qmf3;
+%     end
+%     
+%     disp(max(Qmb2,[],2))
+%     
+%     Qmb1 = Tm1*max(Qmb2,[],2);
+%     
+%     s(1) = 1;
+%     
+%     %% choices + updating
+%     % level 1
+%     
+%     Q = w*Qmb1' + (1-w)*Qmf1(s1_stims);               % mix TD and model value
+%     ps = exp(b*Q)/sum(exp(b*Q));                      %compute choice probabilities for each action
+%     action = find(rand<cumsum(ps),1);                 % choose
+%     a(1) = s1_stims(action);
+%     
+%     s(2) = find(Tm{1}(a(1),:));
+%     
+%     % level 2
+%     
+%     Q = w*Qmb2(s(2),:) + (1-w)*Qmf2(s(2),:);
+%     ps = exp(b*Q)/sum(exp(b*Q));                      %compute choice probabilities for each action
+%     a(2) = find(rand<cumsum(ps),1);                   % choose
+%     
+%     s(3) = find(Tm{2}(a(2),:,s(2)));
+%     
+%     % level 3
+%     
+%     reward = rews(t,s(3));
+%     
+%     %% updating
+%     % level 1
+%     dtQ(1) = Qmf2(s(2),a(2)) - Qmf1(a(1));
+%     Qmf1(a(1)) = Qmf1(a(1)) + lr*dtQ(1);
+%     
+%     % level 2
+%     dtQ(2) = Qmf3(s(3)) - Qmf2(s(2),a(2));
+%     Qmf2(s(2),a(2)) = Qmf2(s(2),a(2)) + lr*dtQ(2);
+%     Qmf1(a(1)) = Qmf1(a(1)) + lambda*lr*dtQ(2);
+%     
+%     % level 3
+%     dtQ(3) = reward - Qmf3(s(3));
+%     Qmf3(s(3)) = Qmf3(s(3)) + lr*dtQ(3);
+%     Qmf2(s(2),a(2)) = Qmf2(s(2),a(2)) + lambda*lr*dtQ(3);
+%     Qmf1(a(1)) = Qmf1(a(1)) + (lambda^2)*lr*dtQ(3);
+%     
+%     %% store stuff
+%     output.A(t,:) = a;
+%     output.R(t,1) = rews(t,s(3));
+%     output.S(t,:) = s;
+%     output.s1_stims(t,:) = s1_stims;
+%         
+%end
     end
-    
-    disp(max(Qmb2,[],2))
-    
-    Qmb1 = Tm1*max(Qmb2,[],2);
-    
-    s(1) = 1;
-    
-    %% choices + updating
-    % level 1
-    
-    Q = w*Qmb1' + (1-w)*Qmf1(s1_stims);               % mix TD and model value
-    ps = exp(b*Q)/sum(exp(b*Q));                      %compute choice probabilities for each action
-    action = find(rand<cumsum(ps),1);                 % choose
-    a(1) = s1_stims(action);
-    
-    s(2) = find(Tm{1}(a(1),:));
-    
-    % level 2
-    
-    Q = w*Qmb2(s(2),:) + (1-w)*Qmf2(s(2),:);
-    ps = exp(b*Q)/sum(exp(b*Q));                      %compute choice probabilities for each action
-    a(2) = find(rand<cumsum(ps),1);                   % choose
-    
-    s(3) = find(Tm{2}(a(2),:,s(2)));
-    
-    % level 3
-    
-    reward = rews(t,s(3));
-    
-    %% updating
-    % level 1
-    dtQ(1) = Qmf2(s(2),a(2)) - Qmf1(a(1));
-    Qmf1(a(1)) = Qmf1(a(1)) + lr*dtQ(1);
-    
-    % level 2
-    dtQ(2) = Qmf3(s(3)) - Qmf2(s(2),a(2));
-    Qmf2(s(2),a(2)) = Qmf2(s(2),a(2)) + lr*dtQ(2);
-    Qmf1(a(1)) = Qmf1(a(1)) + lambda*lr*dtQ(2);
-    
-    % level 3
-    dtQ(3) = reward - Qmf3(s(3));
-    Qmf3(s(3)) = Qmf3(s(3)) + lr*dtQ(3);
-    Qmf2(s(2),a(2)) = Qmf2(s(2),a(2)) + lambda*lr*dtQ(3);
-    Qmf1(a(1)) = Qmf1(a(1)) + (lambda^2)*lr*dtQ(3);
-    
-    %% store stuff
-    output.A(t,:) = a;
-    output.R(t,1) = rews(t,s(3));
-    output.S(t,:) = s;
-    output.s1_stims(t,:) = s1_stims;
-        
 end
 end
+
 % 
 % function lik = compute_model_LL(params,s,a,r,model)
 % 
