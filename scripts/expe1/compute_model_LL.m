@@ -1,16 +1,7 @@
 % This function generates the likelihood of each model/paramters
 
-% need to adapt parameters !!
+%% need to adapt parameters !!
 function lik = compute_model_LL(params,s,a,r,model)
-
-        %% Kool parameters %%%
-
-%         b = x(1);           % softmax inverse temperature
-%         lr = x(2);          % learning rate
-%         lambda = x(3);      % eligibility trace decay
-%         w_low = x(4);           % mixing weight
-%         w_high0 = x(5);           % mixing weight
-%         w_high1 = x(6);           % mixing weight
 
 
 
