@@ -34,8 +34,8 @@ load('SUBDATA')
 
 %# declare variables
 nsub    = 98; % N subjects
-iterations = 1; 
-models = 8; 
+iterations = 10; 
+models = 6; 
 param = 8;
 ntrials = 200;
 
@@ -61,7 +61,7 @@ KK = [1 0 0 1 1 0 0 0;... %1 MF simple
 %     1 0 1 0 1 1 0 0];... %The unlucky-symbol algorithm
 
 
-nfpm = [3 3 5 5 4 6 6 8]; % X X];
+nfpm = [3 3 5 5 6 8]; % X X];
 %nfpm = [nfpm nfpm+1]; % number of free parameters per model
 
 %% simulation loop

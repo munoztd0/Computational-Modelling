@@ -12,16 +12,16 @@ clc
 
 dbstop if error
 
-cd ~/Project/Kool/scripts/expe
+cd ~/Project/Kool/scripts/expe1
 
 % load simulation data
-load('SIMU_RECOVERY_Kool3')
+load('SIMU_RECOVERY_Kool_test')
 
 %% declare variables
-n_fl    = 2; %# number of iteration
-n_mod   = 18; %# number of models
-n_sub = 3;  %# number of subjects
-n_par = 6; %# number of parameters
+n_fl    = 10; %# number of iteration
+n_mod   = 6; %# number of models
+n_sub = 98;  %# number of subjects
+n_par = 8; %# number of parameters
 
 % pre allocate
 bm      = zeros(n_mod,n_mod,n_fl);  % best model
