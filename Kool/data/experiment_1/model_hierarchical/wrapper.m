@@ -9,6 +9,7 @@ nstarts = 5;
 
 % run optimization
 f = @(x,data) MBMF_complexity_llik(x,data);
-results = mfit_optimize_hierarchical(f,set_params,data,nstarts);
+%results = mfit_optimize_hierarchical(f,set_params,data,nstarts);
+mfit_optimize_hierarchical(f,set_params,data,nstarts) 
 
 end

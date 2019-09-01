@@ -115,7 +115,7 @@ for k_it = 1:iterations %# 50 before
             % re-estimate parameters with all possible models
             for k_est=1:models
                 x0                                                  = [10*rand() 10*rand() 10*rand() rand() rand() rand() rand() rand()]; % parameter initial value ?ok?
-                [parameters_rep(1,1:models),ll_rep]                      =   fmincon(@(x) C_iii_compu_model_ll(x,con,output,rews,k_est),x0,[],[],[],[],LB,UB,[],options); %changed out by rews
+                [parameters_rep(1,1:models),ll_rep]                      =   fmincon(@(x) C_iii_compu_model_ll(x,con,output,k_est),x0,[],[],[],[],LB,UB,[],options); %changed out by rews
 
                 SimRun(k_it).recov_param(k_sim).val(k_sub,k_est,:)  = parameters_rep.*KK(k_est,:);
                 SimRun(k_it).ll(k_sim).val(k_sub,k_est)             = ll_rep;

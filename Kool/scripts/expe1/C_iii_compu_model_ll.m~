@@ -31,25 +31,47 @@ for k = 1:length(con)
              %             Q(a(i)) = Q(a(i)) + lr1 * PE; % simple RL
        if con(k) == 1  % high effort trial
 
- 
+            S1 = output.high.S(k,1);
+            S2 = output.high.S(k,2);
+            S3 = output.high.S(k,3);
+            
             A1 = output.high.A(k,1); %choice 0
             A2 = output.high.A(k,2); %choice 1
-            
+            R = output.high.R(k);
             stims1 = output.high.s1_stims(k);
-
+            
+            dtQ = output.high.delta(k,:);
             Q1 = output.high.Q(1,:,k);
             Q2 = output.high.Q(2,:,k);
             
-            lik = lik + b1*Q1(A1)-logsumexp(b1*Q1);    
+            lik = lik + b1*Q1(A1)-logsumexp(b1*Q1);
+            %LL = LL + b*Q1(a(2))-logsumexp(b*Q1);
+            
             lik = lik + b1*Q2(A2)-logsumexp(b1*Q2);
             
        else
                        % store stuff
-            A = output.low.A(k,1);
+            A1 = output.low.A(k,1);
+           
+            output.low.delta(k,:) = low_dtQ;
+            output.low.Q(k,:) = low_Q;
+            
+%             lik = lik + b*Qmd2(a)-logsumexp(b*Qmf2);
+%             Q(a) = Q(a) + lr * PE; % simple RL    
+            S1 = output.low.S(k,1);
+            S2 = output.low.S(k,2);
+            
+            A1 = output.low.A(k,1); %choice 0
+            A2 = output.low.A(k,2); %choice 1
 
-            Q = output.low.Q(:,k);
+            
+            dtQ = output.high.delta(k,:);
+            Q = output.high.Q(k);
             
             lik = lik + b1*Q(A)-logsumexp(b1*Q);
+            
+           
+            
     
        end
     end
