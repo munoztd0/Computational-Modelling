@@ -106,13 +106,14 @@ if model == 1
             Qmf1(a(1)) = Qmf1(a(1)) + (lambda^2)*lr*high_dtQ(3);
 
             %% store stuff
-            output.high.A(k,:) = a;
+            output.high.A(k,:) = a(2);
+            output.high.action(k,:) = a(2);
             output.high.R(k,1) = rews(k,s(3));
             output.high.S(k,:) = s;
             output.high.s1_stims(k,:) = s1_stims;
             output.high.delta(k,:) = high_dtQ;
             output.high.Q(:,:,k) = high_Q;
-            %action = a==s1_stims;
+           
             
 %             Qmb_middle = Tm{2}*Qmf3;   
 %             Q_middle = w*Qmb2 + (1-w)*Qmf2(s1_stims); %s1_stims);    

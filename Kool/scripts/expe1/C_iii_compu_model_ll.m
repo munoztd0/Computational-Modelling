@@ -32,22 +32,22 @@ for k = 1:length(con)
        if con(k) == 1  % high effort trial
 
  
-            A1 = output.high.A(k,1); %choice 0
-            A2 = output.high.A(k,2); %choice 1
+            action = output.high.action(k); %choice 0
+            A2 = output.high.A(k); %choice 1
             
             stims1 = output.high.s1_stims(k);
 
             Q1 = output.high.Q(1,:,k);
             Q2 = output.high.Q(2,:,k);
             
-            lik = lik + b1*Q1(A1)-logsumexp(b1*Q1);    
+            lik = lik + b1*Q1(action)-logsumexp(b1*Q1);    
             lik = lik + b1*Q2(A2)-logsumexp(b1*Q2);
             
        else
                        % store stuff
             A = output.low.A(k,1);
 
-            Q = output.low.Q(:,k);
+            Q = output.low.Q(k,:);
             
             lik = lik + b1*Q(A)-logsumexp(b1*Q);
     
