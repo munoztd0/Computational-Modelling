@@ -141,7 +141,7 @@ for k_it = 1:iterations %# 50 before
 end
 
 %% save files
-save('SIMU_RECOVERY_Kool10','SimRun')
+save('SIMU_RECOVERY_Kool_test','SimRun')
 
 %% notes
         %whatout the order
