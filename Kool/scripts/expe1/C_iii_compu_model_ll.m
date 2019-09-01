@@ -34,8 +34,7 @@ for k = 1:length(con)
  
             action = output.high.action(k); %choice 0
             A2 = output.high.A(k); %choice 1
-            
-            stims1 = output.high.s1_stims(k);
+
 
             Q1 = output.high.Q(1,:,k);
             Q2 = output.high.Q(2,:,k);

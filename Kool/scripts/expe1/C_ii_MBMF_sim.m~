@@ -25,7 +25,7 @@ for k = 1:ntrials
         Tm{2}(:,:,3) = [0 1 0; 0 0 1];        % transition matrix
 
 
-        %output.high.Q = zeros(2,2,ntrials);
+        output.high.Q = zeros(2,2,ntrials);
 
         Qmb2 = zeros(3,2);
 
@@ -36,9 +36,9 @@ for k = 1:ntrials
         Tm_low{1} = [1 0 0; 0 1 0; 0 0 1];        % transition matrix
         Tm_low{2} = [1 0 0; 0 1 0; 0 0 1];        % transition matrix
 
-        %output.low.A = zeros(ntrials,2);
-        %output.low.R = zeros(ntrials,1);
-        %output.low.S = zeros(ntrials,2);
+        output.low.A = zeros(ntrials,2);
+        output.low.R = zeros(ntrials,1);
+        output.low.S = zeros(ntrials,2);
 
 
 
