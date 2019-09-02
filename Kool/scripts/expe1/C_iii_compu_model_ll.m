@@ -24,7 +24,7 @@ lik   = 0;
 
 
 % loop through trials
-for k = 1:length(con)
+for k = 1:ntrials
     
     if model==1
              %             lik = lik + log(1./(1+exp(-beta1 *dQ)));

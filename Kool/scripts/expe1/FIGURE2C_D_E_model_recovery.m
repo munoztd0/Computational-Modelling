@@ -15,11 +15,11 @@ dbstop if error
 cd ~/Project/Kool/scripts/expe1
 
 % load simulation data
-load('SIMU_RECOVERY_Kool_test')
+load('SIMU_RECOVERY_Kool_test10')
 
 %% declare variables
-n_fl    = 10; %# number of iteration
-n_mod   = 6; %# number of models
+n_fl    = 1; %# number of iteration
+n_mod   = 8; %# number of models
 n_sub = 98;  %# number of subjects
 n_par = 8; %# number of parameters
 

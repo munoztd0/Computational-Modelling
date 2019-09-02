@@ -2,9 +2,6 @@ function output = C_ii_MBMF_sim(params, c, rews, model) %taking out b
 % This function should generates the likelihood of each model/paramters
 ntrials = length(c);
 
-
-for k = 1:ntrials 
-    
 %%
 b1 = params(1);           % softmax inverse temperature low or 1
 b2 = params(2);           % softmax inverse temperature high0
@@ -15,32 +12,37 @@ w1 = params(6);          % mixing weight low or 1
 w2 = params(7);          % mixing weight high0
 w3 = params(8);          % mixing weight high1
 
+
+% initialization high
+Qmf1 = zeros(1,3);
+Qmf2 = zeros(3,2);
+Qmf3 = zeros(3,1);                    % Q(s,a): state-action value function for Q-learning
+Tm = cell(2,1);
+Tm{1} = [1 0 0; 0 1 0; 0 0 1];        % transition matrix
+Tm{2}(:,:,1) = [1 0 0; 0 1 0];        % transition matrix
+Tm{2}(:,:,2) = [1 0 0; 0 0 1];        % transition matrix
+Tm{2}(:,:,3) = [0 1 0; 0 0 1];        % transition matrix
+
+Qmb2 = zeros(3,2);
+
+
+% initialization low
+Qmf = zeros(2,3);
+Q2 = zeros(3,1);                      % Q(s,a): state-action value function for Q-learning
+Tm_low{1} = [1 0 0; 0 1 0; 0 0 1];        % transition matrix
+Tm_low{2} = [1 0 0; 0 1 0; 0 0 1];        % transition matrix
+
+s1_stims = datasample(1:3,2,'Replace',false);
+
+
+for k = 1:ntrials 
+    
+
     if model == 1
 
-        % parameters model 1
+        % parameters model 1 = simple MF
 
         w = 0; %x(4);           % mixing weight
-
-        % initialization high
-        Qmf1 = zeros(1,3);
-        Qmf2 = zeros(3,2);
-        Qmf3 = zeros(3,1);                    % Q(s,a): state-action value function for Q-learning
-        Tm = cell(2,1);
-        Tm{1} = [1 0 0; 0 1 0; 0 0 1];        % transition matrix
-        Tm{2}(:,:,1) = [1 0 0; 0 1 0];        % transition matrix
-        Tm{2}(:,:,2) = [1 0 0; 0 0 1];        % transition matrix
-        Tm{2}(:,:,3) = [0 1 0; 0 0 1];        % transition matrix
-
-        Qmb2 = zeros(3,2);
-
-
-        % initialization low
-        Qmf = zeros(2,3);
-        Q2 = zeros(3,1);                      % Q(s,a): state-action value function for Q-learning
-        Tm_low{1} = [1 0 0; 0 1 0; 0 0 1];        % transition matrix
-        Tm_low{2} = [1 0 0; 0 1 0; 0 0 1];        % transition matrix
-
-        s1_stims = datasample(1:3,2,'Replace',false);
 
         %high effort
         if c(k) == 1 
@@ -102,7 +104,7 @@ w3 = params(8);          % mixing weight high1
 
             %% store stuff
             output.high.A(k,:) = a(2);
-            output.high.action(k,:) = a(2);
+            output.high.action(k,:) = action;
             output.high.Q(:,:,k) = high_Q;
 
        %low effort
@@ -133,10 +135,10 @@ w3 = params(8);          % mixing weight high1
 
         end
 %%
-    elseif model == 2
+    elseif model == 2 
 
-        % parameters model 1
-        w = 1; %x(4);           % mixing weight
+        % parameters model 2 = simple MB
+        w = 1;          % mixing weight
 
         % initialization high
         Qmf1 = zeros(1,3);
@@ -220,7 +222,7 @@ w3 = params(8);          % mixing weight high1
 
             %% store stuff
             output.high.A(k,:) = a(2);
-            output.high.action(k,:) = a(2);
+            output.high.action(k,:) = action;
             output.high.Q(:,:,k) = high_Q;
 
        %low effort
@@ -253,7 +255,7 @@ w3 = params(8);          % mixing weight high1
         
      elseif model == 3
 
-        % parameters model 1 
+        % parameters model 3 = MF exhaustive
         w = 0;
 
         % initialization high
@@ -337,7 +339,7 @@ w3 = params(8);          % mixing weight high1
 
             %% store stuff
             output.high.A(k,:) = a(2);
-            output.high.action(k,:) = a(2);
+            output.high.action(k,:) = action;
             output.high.Q(:,:,k) = high_Q;
 
        %low effort
@@ -370,7 +372,7 @@ w3 = params(8);          % mixing weight high1
         
     elseif model == 4
 
-        % parameters model 1 
+        % parameters model 4 = MB exaustive
         w = 1;
 
         % initialization high
@@ -454,7 +456,7 @@ w3 = params(8);          % mixing weight high1
 
             %% store stuff
             output.high.A(k,:) = a(2);
-            output.high.action(k,:) = a(2);
+            output.high.action(k,:) = action;
             output.high.Q(:,:,k) = high_Q;
 
        %low effort
@@ -487,7 +489,7 @@ w3 = params(8);          % mixing weight high1
         
     elseif model == 5
 
-        % parameters model 1
+        % parameters model 5 = simple mixed model
 
         w = w1;           % mixing weight
 
@@ -572,7 +574,7 @@ w3 = params(8);          % mixing weight high1
 
             %% store stuff
             output.high.A(k,:) = a(2);
-            output.high.action(k,:) = a(2);
+            output.high.action(k,:) = action;
             output.high.Q(:,:,k) = high_Q;
 
        %low effort
@@ -605,7 +607,7 @@ w3 = params(8);          % mixing weight high1
         
      elseif model == 6
 
-        % parameters model 1 
+        % parameters model 6 = mixed model with 3 betas
         w = w1;
 
         % initialization high
@@ -691,7 +693,7 @@ w3 = params(8);          % mixing weight high1
 
             %% store stuff
             output.high.A(k,:) = a(2);
-            output.high.action(k,:) = a(2);
+            output.high.action(k,:) = action;
             output.high.Q(:,:,k) = high_Q;
 
        %low effort
@@ -724,7 +726,7 @@ w3 = params(8);          % mixing weight high1
         
     elseif model == 7
 
-        % parameters model 1 
+        % parameters model 7 = mixed model with 3 weights
 
         % initialization high
         Qmf1 = zeros(1,3);
@@ -807,7 +809,7 @@ w3 = params(8);          % mixing weight high1
 
             %% store stuff
             output.high.A(k,:) = a(2);
-            output.high.action(k,:) = a(2);
+            output.high.action(k,:) = action;
             output.high.Q(:,:,k) = high_Q;
 
        %low effort
@@ -837,9 +839,10 @@ w3 = params(8);          % mixing weight high1
             output.low.Q(k,:) = low_Q;
 
         end   
+        
      elseif model == 8
 
-        % parameters model 1 
+        % parameters model 8 = mixed model exhaustive
 
         % initialization high
         Qmf1 = zeros(1,3);
@@ -922,7 +925,7 @@ w3 = params(8);          % mixing weight high1
 
             %% store stuff
             output.high.A(k,:) = a(2);
-            output.high.action(k,:) = a(2);
+            output.high.action(k,:) = action;
             output.high.Q(:,:,k) = high_Q;
 
        %low effort
