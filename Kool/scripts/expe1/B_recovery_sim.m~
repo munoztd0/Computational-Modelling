@@ -33,8 +33,8 @@ load('SUBDATA')
 
 
 %# declare variables
-nsub    = 98; % N subjects
-iterations = 10; 
+nsub    = 9;%8; % N subjects
+iterations = 30; 
 models = 8; 
 param = 8;
 ntrials = 200;
@@ -60,8 +60,8 @@ KK = [1 0 0 1 1 0 0 0;... %1 MF simple
 %     1 0 1 0 1 1 0 0;... %The transition-dependent learning rates (TDLR) algorithm
 %     1 0 1 0 1 1 0 0];... %The unlucky-symbol algorithm
 
-
-nfpm = [3 3 5 5 4 6 6 8]; % X X];
+nfpm = [3 3 5 5 4 6 6 8];
+%nfpm = [3 3 5 5 4 6 6 8]; % X X];
 %nfpm = [nfpm nfpm+1]; % number of free parameters per model
 
 %% simulation loop
@@ -116,9 +116,9 @@ for k_it = 1:iterations %# 50 before
             
             % re-estimate parameters with all possible models
             for k_est=1:models
-                x0                                                  = [10*rand() 10*rand() 10*rand() rand() rand() rand() rand() rand()]; % parameter initial value ?ok?
-                [parameters_rep(1,1:param),ll_rep]                      =   fmincon(@(x) C_iii_compu_model_ll(x,con,output,k_est),x0,[],[],[],[],LB,UB,[],options); %changed out by rews
-
+                x0                                                  = [20*rand() 20*rand() 20*rand() rand() rand() rand() rand() rand()]; % parameter initial value ?ok?
+                [parameters_rep(1,1:param),ll_rep]                  = fmincon(@(x) C_iii_compu_model_ll(x,con,output,k_est),x0,[],[],[],[],LB,UB,[],options); %changed out by rews
+                                                                  % [x,fval] = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options)
                 SimRun(k_it).recov_param(k_sim).val(k_sub,k_est,:)  = parameters_rep.*KK(k_est,:);
                 SimRun(k_it).ll(k_sim).val(k_sub,k_est)             = ll_rep;
             end
@@ -143,7 +143,7 @@ for k_it = 1:iterations %# 50 before
 end
 
 %% save files
-save(['SIMU_RECOVERY_Kool_test,'SimRun')
+save('SIMU_RECOVERY_Kool_test30','SimRun')
 
 %% notes
         %whatout the order

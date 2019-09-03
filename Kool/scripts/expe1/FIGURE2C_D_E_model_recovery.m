@@ -15,12 +15,12 @@ dbstop if error
 cd ~/Project/Kool/scripts/expe1
 
 % load simulation data
-load('SIMU_RECOVERY_Kool_test10')
+load('SIMU_RECOVERY_Kool_test_1_9sub')
 
 %% declare variables
 n_fl    = 1; %# number of iteration
 n_mod   = 8; %# number of models
-n_sub = 98;  %# number of subjects
+n_sub = 9;  %# number of subjects
 n_par = 8; %# number of parameters
 
 % pre allocate
@@ -97,7 +97,7 @@ h2 = figure('Units', 'pixels', ...
     'Position', [400 150 600 600]);
 set(h2,'Color',[1,1,1])
 
-LAB = {'\beta_U_M','\beta_M','\alpha_U_M','\alpha_M','\pi_U_M','\pi_M'};
+LAB = {'\beta_1_M','\beta_2_M', '\beta_3_M','\alpha_M', '\lamda_U_M','\w1_M','\w2_M','\w3_M',};
 
 for k = 1:n_par
     
@@ -126,6 +126,14 @@ for k = 1:n_par
             distr_tp = normpdf(x,.7,.8);
             xl = [-2 6];
         case 6
+            x = -2:0.1:6;
+            distr_tp = normpdf(x,1.7,1.2);
+            xl = [-2 6];
+    case 7
+            x = -2:0.1:6;
+            distr_tp = normpdf(x,1.7,1.2);
+            xl = [-2 6];
+    case 8
             x = -2:0.1:6;
             distr_tp = normpdf(x,1.7,1.2);
             xl = [-2 6];
@@ -206,10 +214,6 @@ for k = 1:n_par
     ylabel(LAB{k});
     
 end
-
-
-
-
 
 
 
