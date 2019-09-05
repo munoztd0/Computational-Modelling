@@ -33,8 +33,8 @@ load('SUBDATA')
 
 
 %# declare variables
-nsub    = 9;%8; % N subjects
-iterations = 1; 
+nsub    = 98;%8; % N subjects
+iterations = 30; 
 models = 8; 
 param = 8;
 ntrials = 200;
@@ -143,7 +143,7 @@ for k_it = 1:iterations %# 50 before
 end
 
 %% save files
-save('SIMU_RECOVERY_Kool_test_1_9sub','SimRun')
+save('SIMU_RECOVERY_Kool_test_30_noparam','SimRun')
 
 %% notes
         %whatout the order
