@@ -51,8 +51,8 @@ for k = 1:ntrials
             lik = lik + b1*Q(A)-logsumexp(b1*Q);
     
        end
-       
-    elseif model==2
+    end   
+    if model==2
           
        if con(k) == 1  % high effort trial
 
@@ -76,8 +76,8 @@ for k = 1:ntrials
             lik = lik + b1*Q(A)-logsumexp(b1*Q);
     
        end
-       
-    elseif model==3
+    end   
+    if model==3
           
        if con(k) == 1  % high effort trial
 
@@ -102,8 +102,8 @@ for k = 1:ntrials
     
        end
        
-       
-    elseif model==4
+    end  
+    if model==4
           
        if con(k) == 1  % high effort trial
 
@@ -127,8 +127,8 @@ for k = 1:ntrials
             lik = lik + b1*Q(A)-logsumexp(b1*Q);
     
        end
-    
-   elseif model==5
+    end 
+   if model==5
           
        if con(k) == 1  % high effort trial
 
@@ -152,8 +152,8 @@ for k = 1:ntrials
             lik = lik + b1*Q(A)-logsumexp(b1*Q);
     
        end
-       
-    elseif model==6
+    end   
+    if model==6
           
        if con(k) == 1  % high effort trial
 
@@ -177,8 +177,8 @@ for k = 1:ntrials
             lik = lik + b1*Q(A)-logsumexp(b1*Q);
     
        end  
-       
-    elseif model==7
+    end   
+    if model==7
           
        if con(k) == 1  % high effort trial
 
@@ -202,8 +202,8 @@ for k = 1:ntrials
             lik = lik + b1*Q(A)-logsumexp(b1*Q);
     
        end
-       
-    elseif model==8
+    end   
+    if model==8
           
        if con(k) == 1  % high effort trial
 
@@ -231,3 +231,4 @@ for k = 1:ntrials
 end
 
 lik = -lik;
+end

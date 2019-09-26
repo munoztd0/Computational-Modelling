@@ -1,10 +1,12 @@
 
-%==========================KOOL===============================================%
+%=========================================================================%
 % Simulation script for parameter recovery and model identifiability
-% Adappted from Correa CMC, et al. (2018) J.Neuro (https://doi.org/10.1523/JNEUROSCI.0457-18.2018)
+% Adappted from Correa et al. (2018) J.Neuro (https://doi.org/10.1523/JNEUROSCI.0457-18.2018)
+% and Kool, Gershman, Cushman (2018) J.CogNeuro (https://doi.org/10.1162/jocn_a_01263)
 % Needs Matlab R2014b or more recent, Matlab's Statistics and Machine Learning and optimization 
 % toolboxes, and the VBA toolbox (https://mbb-team.github.io/VBA-toolbox/)
-% Author: David Munoz
+% Author: David Munoz Tord - david.munoz@etu.unige.ch
+
 
 clc
 clear
@@ -34,10 +36,10 @@ load('SUBDATA')
 
 %# declare variables
 nsub    = 98;%8; % N subjects
-iterations = 30; 
+iterations = 1; 
 models = 8; 
 param = 8;
-ntrials = 200;
+ntrials = 1200; %
 
 
 % set estimation options
@@ -48,22 +50,26 @@ options     = optimset('Algorithm', 'interior-point', 'MaxIter', 1000000);
 LB = [0 0 0 0 0 0 0 0]; % lower bounds 
 UB = [20 20 20 1 1 1 1 1]; % upper bounds
 
+
+%notes
+%simu.recov -> column = model // val = param
 % Model options #well .. model 6 first for now
 KK = [1 0 0 1 1 0 0 0;... %1 MF simple
-    1 0 0 1 1 0 0 0;... %2 MB simple
-    1 1 1 1 1 0 0 0;... %3 MF exhaustive 3beta
-    1 1 1 1 1 0 0 0;... %4 MB exhaustive 3beta
-    1 0 0 1 1 1 0 0;... %5 Mix model simple
-    1 1 1 1 1 1 0 0;... %6 Mix model simple     3beta 1weight
-    1 0 0 1 1 1 1 1;... %7 Mix model simple     1beta 3weight
-    1 1 1 1 1 1 1 1]; %8 Mix model exhaustive
+      1 0 0 1 1 0 0 0;... %2 MB simple
+      1 1 1 1 1 0 0 0;... %3 MF exhaustive 3beta
+      1 1 1 1 1 0 0 0;... %4 MB exhaustive 3beta
+      1 0 0 1 1 1 0 0;... %5 Mix model simple
+      1 1 1 1 1 1 0 0;... %6 Mix model simple     3beta 1weight
+      1 0 0 1 1 1 1 1;... %7 Mix model simple     1beta 3weight
+      1 1 1 1 1 1 1 1]; %8 Mix model exhaustive
 %     1 0 1 0 1 1 0 0;... %The transition-dependent learning rates (TDLR) algorithm
 %     1 0 1 0 1 1 0 0];... %The unlucky-symbol algorithm
 
-nfpm = [3 3 3 3 3 3 3 3];
-%nfpm = [3 3 5 5 4 6 6 8]; % X X];
-%nfpm = [nfpm nfpm+1]; % number of free parameters per model
+%nfpm = [3 3 3 3 3 3 3 3];
+nfpm = [3 3 5 5 4 6 6 8]; % X X];
 
+
+tic
 %% simulation loop
 for k_it = 1:iterations %# 50 before
     
@@ -92,7 +98,6 @@ for k_it = 1:iterations %# 50 before
         % simulate data
         for k_sub=1:nsub
             
-            
             % get task structure from behavioral data
             data = SUBDATA(k_sub); %%% was ksub instead of k_sub %%% 
             con  = data.high_effort; %%% 0 or 1 %cor  = round((data(:,3)==1) +1); %# block number? WELLLLL ****
@@ -100,8 +105,6 @@ for k_it = 1:iterations %# 50 before
             % simulate behavior with sampled parameters
             SimRun(k_it).simu_param(k_sub,k_sim,:)  = [B1(k_sub), B2(k_sub), B3(k_sub), LR(k_sub), LAMBDA(k_sub), W1(k_sub),W2(k_sub),W3(k_sub)].*KK(k_sim,:);
 
-
-            
             addpath ~/Project/mfit/
             cd ~/Project/Kool/scripts/expe1
 
@@ -113,7 +116,7 @@ for k_it = 1:iterations %# 50 before
 
             %% SARS
             output  = C_ii_MBMF_sim(squeeze(SimRun(k_it).simu_param(k_sub,k_sim,:)),con, rews, k_sim);   %# returns S A R & S1
-            
+
             % re-estimate parameters with all possible models
             for k_est=1:models
                 x0                                                  = [20*rand() 20*rand() 20*rand() rand() rand() rand() rand() rand()]; % parameter initial value ?ok?
@@ -127,13 +130,19 @@ for k_it = 1:iterations %# 50 before
   
     % model comparison step, for each simulation
     for k_sim = 1:models        
-        LL                                      = SimRun(k_it).ll(k_sim).val; %%% same change here %%%
+        LL                                      = SimRun(k_it).ll(k_sim).val; 
         for n=1:models
-            SimRun(k_it).bic(:,n)               = -2*-LL(:,n) + nfpm(n)*log(ntrials); % bayesian Information criterion
+            SimRun(k_it).bic(:,n)               = -2*-LL(:,n) + nfpm(n)*log(ntrials); % bayesian Information criterion = -2*L + k*log(n)
+            SimRun(k_it).aic(:,n)               = 2*nfpm(n)-2*log(LL(:,n));  %AIC=2k-2log(L)
+
         end     
-        [posteriorAdo,outAdo]                   = VBA_groupBMC(-SimRun(k_it).bic'./2); %%% same change here %%%
+        [posteriorAdo,outAdo]                   = VBA_groupBMC(-SimRun(k_it).bic'./2); %??
         SimRun(k_it).BMC_output(k_sim).post     = posteriorAdo;
         SimRun(k_it).BMC_output(k_sim).out      = outAdo;
+        
+        [posteriorAdoAIC,outAdoAIC]                   = VBA_groupBMC(-SimRun(k_it).aic'./2); %??
+        SimRun(k_it).BMC_outputAIC(k_sim).post     = posteriorAdoAIC;
+        SimRun(k_it).BMC_outputAIC(k_sim).out      = outAdoAIC;
         
     end
     
@@ -141,33 +150,11 @@ for k_it = 1:iterations %# 50 before
     
     close all force
 end
-
+toc
 %% save files
-save('SIMU_RECOVERY_Kool_test_30_noparam','SimRun')
+n_iter = num2str(iterations);
+save(['SIMU_RECOVERY_Kool_' n_iter],'SimRun')
 
 %% notes
         %whatout the order
 
-        %A and B, respectively.
-        % Kool 2016
-        % weighting parameter w, ranging from 0 to 1, 
-        %the inverse temperature, ranging from 0 to 10, 
-        %and the learning rate, ranging from 0 to 10. ???
-        % eligibility trace parameter was fixed at a value that corresponded approximately with previous reports of this task, 
-        %λ = 0.5, 
-        
-        %For each agent, we randomly sampled parameters from uniform distributions: 
-        % (alpha,lamda, weigh, ~U(0,+1) // Beta ~U(0,+2) 
-        
-        
-        %% Kool parameters %%%
-
-        % % parameters
-        % b_low = x(1);           % softmax inverse temperature
-        % b_high0 = x(2);           % softmax inverse temperature
-        % b_high1 = x(3);           % softmax inverse temperature
-        % lr = x(4);          % learning rate
-        % lambda = x(5);      % eligibility trace decay
-        % w_low = x(6);           % mixing weight
-        % w_high0 = x(7);           % mixing weight
-        % w_high1 = x(8);           % mixing weight
