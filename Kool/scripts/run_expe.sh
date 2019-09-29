@@ -2,7 +2,7 @@
 
 
 #matlab_script="wrapper"
-matlabSubmit="/home/davidM/Project/Kool/Kool/scripts/matlab_run.sh"
+matlabSubmit="/home/davidM/Project/Kool/scripts/matlab_run.sh"
 #codeDir="/home/davidM/Project/Kool/Kool/scripts/expe1"
 
 # Loop over subjects
@@ -12,6 +12,6 @@ matlabSubmit="/home/davidM/Project/Kool/Kool/scripts/matlab_run.sh"
 	#codeDir="~/Kool_2018/data/${expe}/model"
 	#echo ${codeDir}
 	#prep for each session's data
-qsub -o /home/davidM/ClusterOutput -j oe -l walltime=50:40:00,pmem=8GB -M david.munoz@etu.unige.ch -m e -l nodes=1  -q queue1 -N ${matlabSubmit}
+qsub -o /home/davidM/ClusterOutput -j oe -l walltime=50:40:00,pmem=8GB -M david.munoz@etu.unige.ch -m e -l nodes=1  -q queue1 -N "simu" ${matlabSubmit}
 
 #done

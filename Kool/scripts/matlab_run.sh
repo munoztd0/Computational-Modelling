@@ -13,7 +13,7 @@ echo "Bash version ${BASH_VERSION}..."
 #PBS_O_WORKDIR=$1
 
 #echo Working directory is '/home/davidM/Project/Kool/Kool/scripts/expe1
-cd /home/davidM/Project/Kool/Kool/scripts/expe1
+cd /home/davidM/Project/Kool/scripts/expe1
 
 NPROCS=`wc -l < $PBS_NODEFILE`
 

@@ -1,0 +1,159 @@
+%--------------------------------------------------------%
+%	ABSTRACT
+%--------------------------------------------------------%
+
+% NOTE: about 100 words.
+
+\begin{abstract}
+\noindent XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.
+\end{abstract}
+
+% Insert keywords here
+\setlength\parindent{.45in} \keywords{brain reward systems; liking and wanting; odors; hr-fMRI}
+
+
+%--------------------------------------------------------%
+%	BODY TEXT
+%--------------------------------------------------------%
+
+% Start double spacing here if you want
+\doublespacing
+
+% Main Text
+\section*{Introduction}
+\\
+%"It has been suggested that reward processing involves multiple components such as motivational salience and hedonic pleasure. As mentioned above, these components typically work together: the more the reward is liked, the more the organism is willing to work to obtain the reward. Various authors (e.g. Robinson & Berridge, 1993) claimed that this dissociation has an important role in compulsive behaviour involved in several psychopathologies as substance addiction, behavioural addiction or eating disorders. However, to the best of our knowledge, no study ever demonstrated that hedonic pleasure and motivational salience are dissociable in human. Several animal experiments demonstrated that it is possible to dissociate these components by manipulating mesolimbic dopamine level. Here, we want to test if these two components of reward processing are dissociable in human by using a paradigm similar to those that have been used on animal research, but by using a psychological manipulation rather than a brain manipulation. The possible independence of the motivational salience and hedonic pleasure in human reward processing could have important theoretical and clinical implication."
+
+\section*{Method}
+
+\subsection*{Participants}
+Twenty-six right-handed healthy participants who liked chocolate were recruited from the undergraduate student population in Geneva. Data from 2  participant were discarded from the analyses because Xone didn't to the scanner session and the other moved too muchX. 
+The 24 remaining participants (XX men, XX.15 ± X.05 years old) had no reported olfactory trouble (?).
+%No statistical methods were used to predetermine sample size. However, our sample size was similar or larger than in related publications (XX). 
+%They were asked not to eat, practice sport, or drink coffee 4 hr before the experimental session and received 30 Swiss francs for their participation. 
+
+
+\subsection*{Materials}
+\subsubsection*{Instrumental apparatus}
+All participants completed the BIS-BAS \cite{Carver, 1994} and handedness questionnaires \cite{Oldfield, R. C. (1971).} as well as 4 questions about chocolate, in order to select participant who like chocolate  (see table 1) and Visual analogue scales were used for the evaluation of the odor characteristics (see table 3).
+
+Measure of the mobilized effort was done via a hand dynamometer (TSD121C, Biopac® Systems, Santa Barbara, CA) with a 1,000 Hz sampling We used an olfactometer (manufactured by Firmenich, SA, Geneva, Switzerland) to deliver the odor stimuli 
+%"with an airflow fixed at 1.5 L/min delivering the olfactory stimulation rapidly, without thermal and tactile confounds via a nasal cannula \cite{(see Ischer et al., 2014)}."
+
+\subsubsection*{Stimuli}
+Visual stimuli were meaningless complex geometrical figures rated as neutral in a previous study \cite{Pool et al., 2014}. Odours stimuli (see table 2) were provided by Firmenich, SA, Geneva, Switzerland.\\
+
+
+
+%"The Pavlovian stimuli consisted of three geometric complex figures typically used in human conditioning paradigms (Gottfried, O’Doherty, & Dolan, 2003; O’Doherty et al., 2004; Valentin, Dickinson, & O’Doherty, 2007) that in a pilot study (n = 26) were rated as similarly neutral on a pleasantness scale (see Pool et al., 2014). They were displayed in the center of the computer screen with a visual angle of 8°. The Pavlovian identities of three images used as CS+, CS−, and baseline were counterbalanced across participants. The US consisted of a chocolate odor (20\% dissolved in propylene glycol; Firmenich, SA, Geneva, Switzerland),
+
+
+\section*{Experimental tasks}
+We made the participants perform an analog of a human Pavlovian-Instrumental Transfer (PIT) paradigm \cite{Talmi, 2008} adapted for appetitive conditioning \cite{Pool, 2015}.
+%This visual feedback was illustrated through the “mercury” of a thermometer-like image displayed on the left side of the screen (30° visual angle) that moved up and down according to the mobilized effort (see Figure 1a)"
+\subsubsection*{Instrumental conditioning}
+First, the subjects learned to squeeze the hand dynamo-meter to trigger the release of a rewarding chocolate odor while a geometric image was displayed. They were XX trials lasting for XXsec. A thermometer-like image displayed on the left of the screen (see Figure 1a) served as visual feedback to reflect the force exerted on the hand grip. 
+
+%"Participants were asked to keep their gaze on the central geometric image and to squeeze the handgrip, thereby bringing the mercury of the thermometer- like display up to the maximum and then down again, without paying attention to the speed of compressing the grips. They were told that during the 12-s presentation of the thermometer-like display, there were three “special 1-s windows” and that if they happened to squeeze the handgrip during one of these time windows, they would trigger the release of chocolate  odor. Finally, they were told that they were free to choose when to squeeze on the grip and were encouraged to use their intuition. In reality, only two special 1-s windows were randomly selected in each task-on period to be rewarded with chocolate odor, and if participants happened to squeeze the handgrip with at least 50\% or 70\% of their maximal force during these time windows, a sniffing signal (a black asterisk; 2° visual angle) was displayed at the center of the geometric image and the chocolate odor was delivered. During the task-off periods, a fixation cross (2° visual angle) was displayed at the center of the screen and participants were asked to keep their gaze on the fixation cross and to relax their hand to recalibrate the baseline force.
+
+\subsubsection*{Pavlovian conditioning}
+After the instrumental conditioning phase, participants were exposed to repeated pairings of the positive conditioned stimulus (CS+) with the rewarding chocolate odor, the negative conditioned stimulus (CS-) with one (?) of the odor which they individually rated as neutral on the day before (see Supplementary Material) and the control condition were no odor was released (baseline). When the CS+ or CS- was displayed, a target appeared in the center and participants had to press a key that triggered odor release. The baseline was displayed without any target. They were XX CS- or CS+ trials of XXs followed by a baseline image of another XXs.
+
+%"During the task-on periods, a target appeared every 4 s at the center of the CS image three times per period. Participants had to press the “A” key as fast as possible after they perceived the target that was presented for a maximum of 1 s. Each time the CS image was displayed and the participant pressed the key, a chocolate odor was released; when the CS image was displayed, odorless air was released. Participants were informed that the kind of odor released depended only on the CS image and not on the key-pressing task. They were told that the key-pressing task was a measure of their sustained attention independent of the odor-image  contingencies (see also Talmi et al., 2008). To further emphasize this aspect, participants were also informed that the odor would be released after a 1-s interval after target onset if they had not responded until then. However, the odor was released faster when participants pressed on the keyboard than when participants did not press on the keyboard. Because of this instrumental component the conditioning task can be considered a hybrid of Pavlovian and discriminative instrumental learning, rather than a pure Pavlovian learning. During the task-off periods, the baseline image was displayed without any target, and no odor was released (see Figure 1b)." 
+
+\subsubsection*{Pavlovian-Instrumental Transfer test}
+Participants were told to perform as on the instrumental part. The first XX trials were identical to the instrumental conditioning (partial exctinction ?) and then followed 45 transfer trials under extinction where the instrumental response was not rewarded anymore (see Figure 1c). 15*cond ??
+%"In the transfer test, one of the Pavlovian stimuli (CS, CS, or baseline) replaced the instrumental geometric image during the entire trial . The Pavlovian-Instrumental Transfer test (PIT) was done under extinction, that is the action was not associated with a stimulus anymore. At this stage, participants could squeeze the hand grip if they wished to do so."
+
+\subsubsection*{Stimuli evaluation}
+We asked participant to evaluate the intensity (from not perceived to extremely strong) and pleasantness (from extremely unpleasant to extremely pleasant), of each of the 12 odor stimuli.\\
+Participants also evaluated the pleasantness of the visual stimuli.\\ 
+All the evaluation were on visual analog scales displayed on a computer screen.
+
+\subsubsection*{Procedure}
+XX which before which XX
+The experiment took place over two separate days in the Brain and Behavior Laboratory (BBL) of the University of Geneva.\\
+On the first day, participants had to accomplish the two first phases (see Figure 1a and 1b) of our experimental task and evaluate the stimuli.\\ manipulation check and select neutral odor 
+The second day happened in the scanner where participants had to accomplish the complete PIT task.\\
+The evaluation of the odor stimuli was done after the PIT on the second day and XX, while evaluation of the images was only done after the pavlovian conditioning on the second day.\\
+The presentation of the stimuli and the collection of the responses were controlled by a computer running MATLAB 20XXX (Math Works, Natick, USA) and Psychtoolbox (v.3) was implemented as visual interface.\\
+Order of presentation was randomized across participants for each task.\\
+
+see task description Pool 2015
+\subsection*{Behavioral analysis}
+To take into account within- and between-subject variance (?), we used the lmerTest (Kuznetsova, Brockhoff, & Christensen, 2014) and lme4 packages (Bates, Maechler, Bolker, & Walker, 2014) in R (Team, 2014) to perform a general linear mixed effect model of the relationship between the behavioral PIT and the salient motivation of the participant. Our dependent variable was the number of grips and our fixed effects was the experimental conditions  (CS-, CS+ and Baseline). As random effects, we had intercepts for subjects and trials. planned contrats. We exctracted p-value using likelihod ratio test (Pinheiro & Bates, 2000).
+\subsection*{Data acquisition} from Prevost 2012
+We acquired all of our images with a 3 Tesla Magnetom TrioTrim scanner (Siemens Medical Solutions).
+On account of our clear regions of interest, we acquired partial oblique axial T2*-weighted echo planar images (EPI) covering the striatum (see Figure 2). The bands were determined during/before the taks?\\
+Our covering also enclosed the amygdala, the hippocampus, the insula, the dorsal part of the cerebellum, as well as the ventral parts of the occipal lobe and the prefrontal cortex.
+
+We recorded twenty-six EPI slices per scan?  with an isotropic voxel size of 1.8 mm which is ~4.6 times the resolution of common standard acquisitions.?
+Our parameters were set at: echo time (TE) 41 ms; repetition time (TR) 2400 ms;
+
+" ascending interleaved ordering were 
+(no slice gap); standard 3 mm
+?field of view  180 X 180 X 39.6 mm; sampling matrix  100 X 100 voxels).
+
+We discarded 3-5 first?
+
+% We discarded the first 3 EPI volumes before data processing and statistical analysis to minimize magnetization equilibration effects on the BOLD timeseries. Whole-brain high-resolution T1-weighted structural images (two repetitions, isotropic voxel size  1 mm) and whole-brain T2*-weighted images (three repetitions) were acquired for each participant. To address the problem of spatial EPI distortions which are particularly prominent in the medial temporal lobe (MTL) and especially in the amygdala, we also acquired dual gradient echo B0 field maps. Finally, to account for the effects of physiological noise in the fMRI data, participants’ cardiac and respiratory signals were recorded using the MRI system’s pulse oximeter and respiratory bellows.
+
+32 channel ?
+26 Partial EPI
+TR 2400 TE 41
+1.8 voxel isometric
++ T1; Gradient field maps; Whole Brain
+
+%"All magnetic resonance imaging was performed on a 3 tesla Magnetom Tim Trio scanner (Siemens Medical Solutions) equipped with a 32-channel receive-only phased array head coil. Since the focus of our study was on the amygdala, we acquired oblique axial T2*-weighted echo planar images (EPI) with partial brain coverage centered on the medial temporal cortex while participants were performing the task. These images also encompassed the ventral striatum, ventral part of the prefrontal cortex, the insula, the hippocampus, the ventral part of the occipital lobe and the upper part of the cerebellum (among other regions). 
+
+\subsection*{Preprocessing}
+We used the Functional Magnetic Resonance Imaging of the Brain Centre (FMRIB) Software Library version 4.1.9 (FSL)  \cite{Jenkinson, 2012} to create a pipeline suited for the preprocessing of our hr-fMRI data.\\
+The pipeline consisted in:
+-Individual brain extraction of each individual (at a specific threshold) using FMRI Expert Analysis Tool (FEAT) (check the quotes)\\
+- We used Multivariate Exploratory Linear Optimized Decomposition into Independent Components version 3.0 (MELODIC)  to perform independent component analysis (ICA) on our data.
+- Manually classification of ICA : label noise from ICA and compare with other judge
+-We then used FSL's ICA-based X-noiseifier (FIX) plug-in \cite{Salimi-Khorshidi, 2014} to train a classifier (machine learning) that can classify components as artifact/signal and remove artifacts such as motion and heart pump\\ 
+"provides an automatic solution for denoising fMRI data via accurate classification of ICA components"\\ 
+-Unwarping using FMRIB's Utility for Geometrically Unwarping EPIs (FUGUE), fieldmaps (bias distortion correction) \cite{Smith, 2004}  "One approach to solving this problem is to use a measured field-map to “unwarp” the distorted images by performing pixel shifts in the phase-encode direction"(Jezzard and Balaban, 1995) \\
+-Coregistration using  Advanced normalization tools (ANTS) \cite{ Avants, B. B., Tustison (2009)} \\
+-For ebtter power ? Soft spatial smoothing (4mm FWHM  3D Gaussian kernel) was applied to account for residual motion of participants.\\
+
+ After pre-statistical processing and individual Independent Component Analysis (ICA), FMRIB's ICA-based X-noiseifier (FIX) was used to remove noise components from the data.
+
+% the FSL feat pipeline was adapted to preprocess the high-resolution fMRI data. Slice-time correction was applied to the functional images to adjust for the fact that different slices within each image were acquired at slightly different points in time. Images were corrected for participant motion, and gradient fieldmaps were applied to correct distortions of the zoomed EPI images.
+
+\subsection*{fMRI data analysis}
+The SPM12 software package was used to analyze the fMRI data (Wellcome Department of Imaging Neuroscience, Institute of Neurology, London)//
+%\input{sections/PIT.tex}
+%\input{sections/HED.tex}
+
+%The event-related fMRI data were analyzed by constructing sets of (stick) functions. All three phases of the task were modeled separately and here we report results only from the PIT phase. The GLM included regressors at the time of trial onset and outcome delivery for both the instrumental and Pavlovian phases. For the PIT phase, we included regressors at the time of cue onset for 4 conditions: specific PIT when the option compatible with the Pavlovian cue elicited higher response rates, specific PIT when the incompatible option elicited higher response rates,general trials and neutral trials. All of these regressors were convolved with a canonical hemodynamic response function (HRF). The six scan-to-scan motion parameters derived from the affine part of the realignment procedure were included as regressors of no interest to account for residual motion effects. We also included 13 additional regressors to account for physiological fluctuations (4 related to heart rate, 9 related to respiration) which were estimated using the RETROICOR algorithm (Glover et al., 2000). Sixteen of the 78 (3 sessions  26 participants) log files could not be used to estimate these regressors due to a technical problem during data collection, and the missing physiological regressors were simply omitted for those sessions. Finally, to account for variance induced by differences in response rates across conditions in the instrumental and PIT phases, we added a regressor of no interest correspond-
+
+\section*{Results}
+\subsection*{Behavioral results}->Stimulus evaluation, conditioning, PIT effects
+\subsection*{fMRI results}
+
+\section*{Discussion}
+\section*{References}
+
+
+%\vspace{.25in}
+%\begin{center}
+%{\LARGE \textit{TABLE 2 ABOUT HERE.}}
+%\end{center}
+
+
+
+
+%\begin{equation}
+%\label{eq:emc}
+%e = mc^2
+%\end{equation}
+
+% \todo[size=\footnotesize]{Sample margin comment. Footnote size.}
+
+%\st{Aenean eleifend purus et massa consequat facilisis. Etiam volutpat placerat dignissim.}  \todo[inline,color=blue!40]{Sample inline comment, with blue color. Good for bigger comments. }
+
+
+
+
