@@ -15,12 +15,12 @@ dbstop if error
 cd ~/Project/Kool/scripts/expe1
 
 % load simulation data
-load('SIMU_RECOVERY_Kool_1.mat')
+load('SIMU_RECOVERY_Kool_new.mat')
 
 %% declare variables
-n_fl    = 1; %# number of iteration
+n_fl    = 2; %# number of iteration
 n_mod   = 8; %# number of models
-n_sub = 98;  %# number of subjects
+n_sub = 2;  %# number of subjects
 n_par = 8; %# number of parameters
 
 % pre allocate
@@ -36,7 +36,7 @@ for k_fl = 1:n_fl
     % get model comparison result for each model simulation (/confussion
     % matrices)
     for k_sim = 1:n_mod       
-        bmc_res                 = SimRun(k_fl).BMC_output(k_sim);
+        bmc_res                 = SimRun(k_fl).BMC_outputAIC(k_sim);
         ep(k_sim,:,k_fl)        = 100*bmc_res.out.ep;    
         [~,ln_max]              = max(bmc_res.out.ep);
         bm(k_sim,ln_max,k_fl)   = 1;
@@ -97,7 +97,7 @@ h2 = figure('Units', 'pixels', ...
     'Position', [400 150 600 600]);
 set(h2,'Color',[1,1,1])
 
-LAB = {'\beta_1_M','\beta_2_M', '\beta_3_M','\alpha_M', '\lamda_U_M','\w1_M','\w2_M','\w3_M',};
+LAB = {'\beta_1_M','\beta_2_M', '\beta_3_M','\alpha_M', '\lamda_U_M','\w1_M','\w2_M','\w3_M'};
 
 for k = 1:n_par
     
@@ -129,11 +129,11 @@ for k = 1:n_par
             x = -2:0.1:6;
             distr_tp = normpdf(x,1.7,1.2);
             xl = [-2 6];
-    case 7
+        case 7
             x = -2:0.1:6;
             distr_tp = normpdf(x,1.7,1.2);
             xl = [-2 6];
-    case 8
+        case 8
             x = -2:0.1:6;
             distr_tp = normpdf(x,1.7,1.2);
             xl = [-2 6];

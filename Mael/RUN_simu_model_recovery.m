@@ -32,7 +32,7 @@ end
 %% load data
 load('SUB_DATA')
 rep     = 1; % number of run per subject %%% this part was missing for some reason %%%
-nsub    = rep*32; % N subjects
+nsub    = rep*1; % N subjects
 
 % set estimation options
 options     = optimset('Algorithm', 'interior-point', 'MaxIter', 1000000);
@@ -72,13 +72,13 @@ nfpm = [2 2 3 3 3 4 4 4 5];
 nfpm = [nfpm nfpm+1]; % number of free parameters per model
 
 %% simulation loop
-for k_it = 1:50
+for k_it = 1:1 %50
 
     clear ll ll_rep bic recov_param
     close all force
 
     % simulate with all possible models
-    for k_sim = 1:18
+    for k_sim = 1:2 %18
 
         % sample parameters
         n   = 32;
@@ -107,7 +107,7 @@ for k_it = 1:50
             %%% SimRun(k_it).simu_param(k_sub,k_sim,:) in order to work %%%
 
             % re-estimate parameters with all possible models
-            for k_est=1:18
+            for k_est=1:2  %18
                 x0                                                  = [10*rand() 10*rand() rand() rand() 10*rand() 10*rand()]; % parameter initial value
                 [parameters_rep(1,1:6),ll_rep]                      =   fmincon(@(x) compute_model_LL(x,con,cho,out,k_est),x0,[],[],[],[],LB,UB,[],options);
                 SimRun(k_it).recov_param(k_sim).val(k_sub,k_est,:)  = parameters_rep.*KK(k_est,:);
@@ -117,9 +117,9 @@ for k_it = 1:50
     end
 
     % model comparison step, for each simulation
-    for k_sim = 1:18
+    for k_sim = 1:2 %18
         LL                                      = SimRun(k_it).ll(k_sim).val; %%% same change here %%%
-        for n=1:18
+        for n=1:2 %18
             SimRun(k_it).bic(:,n)               = -2*-LL(:,n) + nfpm(n)*log(1200); % bayesian Information criterion
         end
         [posteriorAdo,outAdo]                   = VBA_groupBMC(-SimRun(k_it).bic'./2); %%% same change here %%%
@@ -132,4 +132,4 @@ for k_it = 1:50
 end
 
 %% save files
-save('SIMU_RECOVERY4','SimRun')
+save('SIMU_RECOVERY_test1','SimRun')

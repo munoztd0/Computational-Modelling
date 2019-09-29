@@ -10,11 +10,12 @@ echo "Bash version ${BASH_VERSION}..."
 
 #MATLAB=/usr/local/MATLAB/R2017a/bin/matlab
 
-PBS_O_WORKDIR=$1
+#PBS_O_WORKDIR=$1
 
-echo Working directory is $PBS_O_WORKDIR
-cd $PBS_O_WORKDIR
+#echo Working directory is '/home/davidM/Project/Kool/Kool/scripts/expe1
+cd /home/davidM/Project/Kool/Kool/scripts/expe1
 
 NPROCS=`wc -l < $PBS_NODEFILE`
+
 #echo /usr/local/MATLAB/R2017a/bin/matlab -nojvm -nodisplay -nosplash -r "wrapper(); exit"
-/usr/local/MATLAB/R2017a/bin/matlab -nojvm -nodisplay -nosplash -r "wrapper(); exit"
+/usr/local/MATLAB/R2017a/bin/matlab -nojvm -nodisplay -nosplash -r "B_recovery_sim(); exit"
