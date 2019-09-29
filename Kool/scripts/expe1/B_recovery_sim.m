@@ -35,11 +35,11 @@ load('SUBDATA')
 
 
 %# declare variables
-nsub    = 98;%8; % N subjects
-iterations = 10; 
+nsub    = 2: %98;%8; % N subjects
+iterations = 2; 
 models = 8; 
 param = 8;
-ntrials = 200; %
+ntrials = 20 %0; %
 
 
 % set estimation options
