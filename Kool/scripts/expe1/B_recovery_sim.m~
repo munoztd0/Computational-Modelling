@@ -15,13 +15,13 @@ close all
 rng('shuffle')
 
 % %%%
-% cd ~/Project/VBA-toolbox/
-% VBA_setup()
+cd ~/Project/VBA-toolbox/
+VBA_setup()
 % 
 cd ~/Project/Kool/data/
 % %%%
 
-dbstop if error
+%dbstop if error
 
 try 
     VBA_version;
@@ -35,11 +35,11 @@ load('SUBDATA')
 
 
 %# declare variables
-nsub    = 2: %98;%8; % N subjects
-iterations = 2; 
+nsub    = 98;%8; % N subjects
+iterations = 4; 
 models = 8; 
 param = 8;
-ntrials = 200; %
+ntrials = 200; %0; %
 
 
 % set estimation options
@@ -158,7 +158,7 @@ end
 toc
 %% save files
 n_iter = num2str(iterations);
-save('SIMU_RECOVERY_Kool_cluster_real','SimRun')
+save('SIMU_RECOVERY_Kool_machine','SimRun')
 
 %% notes
 

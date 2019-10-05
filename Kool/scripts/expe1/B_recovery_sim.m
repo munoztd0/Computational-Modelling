@@ -35,8 +35,8 @@ load('SUBDATA')
 
 
 %# declare variables
-nsub    = 2; %98;%8; % N subjects
-iterations = 1; 
+nsub    = 98;%8; % N subjects
+iterations = 4; 
 models = 8; 
 param = 8;
 ntrials = 200; %0; %
@@ -158,7 +158,7 @@ end
 toc
 %% save files
 n_iter = num2str(iterations);
-save('SIMU_RECOVERY_Kool_cluster_test','SimRun')
+save('SIMU_RECOVERY_Kool_machine','SimRun')
 
 %% notes
 

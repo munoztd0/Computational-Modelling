@@ -15,12 +15,12 @@ dbstop if error
 cd ~/Project/Kool/scripts/expe1
 
 % load simulation data
-load('SIMU_RECOVERY_Kool_new.mat')
+load('SIMU_RECOVERY_Kool_mac.mat')
 
 %% declare variables
-n_fl    = 2; %# number of iteration
+n_fl    = 6; %# number of iteration
 n_mod   = 8; %# number of models
-n_sub = 2;  %# number of subjects
+n_sub = 98;  %# number of subjects
 n_par = 8; %# number of parameters
 
 % pre allocate
@@ -97,13 +97,25 @@ h2 = figure('Units', 'pixels', ...
     'Position', [400 150 600 600]);
 set(h2,'Color',[1,1,1])
 
-LAB = {'\beta_1_M','\beta_2_M', '\beta_3_M','\alpha_M', '\lamda_U_M','\w1_M','\w2_M','\w3_M'};
+LAB = {'\beta_1_M','\beta_2_M', '\beta_3_M','\alpha_M', '\lambda_M','\omega_1_M','\omega_2_M','\omega_3_M'};
 
 for k = 1:n_par
     
-    subplot(3,2,k)
+    subplot(4,2,k)
     hold on
     
+%         B1  = random('Gamma',4,.5,n,1);
+%         B2  = random('Gamma',4,.5,n,1);
+%         B3  = random('Gamma',4,.5,n,1);
+%         
+%         LR = random('Beta',5,1.5,n,1);
+%         
+%         LAMBDA  = random('Uniform',0,1,n,1);
+%         
+%         W1  = random('Uniform',0,1,n,1);
+%         W2  = random('Uniform',0,1,n,1);
+%         W3  = random('Uniform',0,1,n,1);
+
     switch k
         case 1
             x = 0:0.2:10;
@@ -111,31 +123,31 @@ for k = 1:n_par
             xl = [0 10];
         case 2
             x = 0:0.2:10;
-            distr_tp = gampdf(x,1.5,1);
+            distr_tp = gampdf(x,4,.5);
             xl = [0 10];
         case 3
             x = 0:0.01:1;
-            distr_tp = betapdf(x,5,1.5);
-            xl = [0 1];
+            distr_tp = gampdf(x,4,.5);
+            xl = [0 10];
         case 4
             x = 0:0.01:1;
-            distr_tp = betapdf(x,1.5,5);
+            distr_tp = betapdf(x,5,1.5);
             xl = [0 1];
         case 5
             x = -2:0.1:6;
-            distr_tp = normpdf(x,.7,.8);
+            distr_tp = normpdf(x,0,1);
             xl = [-2 6];
         case 6
             x = -2:0.1:6;
-            distr_tp = normpdf(x,1.7,1.2);
+            distr_tp = normpdf(x,0,1);
             xl = [-2 6];
         case 7
             x = -2:0.1:6;
-            distr_tp = normpdf(x,1.7,1.2);
+            distr_tp = normpdf(x,0,1);
             xl = [-2 6];
         case 8
             x = -2:0.1:6;
-            distr_tp = normpdf(x,1.7,1.2);
+            distr_tp = normpdf(x,0,1);
             xl = [-2 6];
     end
     
@@ -203,7 +215,7 @@ for k = 1:n_par
     
     mtp = STORE_REG(k).stats.beta;
     stp = STORE_REG(k).stats.se;
-    subplot(3,2,k)
+    subplot(4,2,k)
     hold on
     bar(mtp,'FaceColor',.9.*[1,1,1])
     errorbar(mtp,stp,'k','LineStyle','none')
