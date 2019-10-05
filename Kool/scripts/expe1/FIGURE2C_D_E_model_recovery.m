@@ -18,7 +18,11 @@ cd ~/Project/Kool/scripts/expe1
 load('SIMU_RECOVERY_Kool_mac.mat')
 
 %% declare variables
+<<<<<<< HEAD
 n_fl    = 6; %# number of iteration
+=======
+n_fl    = 1; %# number of iteration
+>>>>>>> 508134f28693faa346790bf69ee3501b801abb4b
 n_mod   = 8; %# number of models
 n_sub = 98;  %# number of subjects
 n_par = 8; %# number of parameters
@@ -36,7 +40,7 @@ for k_fl = 1:n_fl
     % get model comparison result for each model simulation (/confussion
     % matrices)
     for k_sim = 1:n_mod       
-        bmc_res                 = SimRun(k_fl).BMC_outputAIC(k_sim);
+        bmc_res                 = SimRun(k_fl).BMC_output(k_sim);
         ep(k_sim,:,k_fl)        = 100*bmc_res.out.ep;    
         [~,ln_max]              = max(bmc_res.out.ep);
         bm(k_sim,ln_max,k_fl)   = 1;

@@ -35,8 +35,13 @@ load('SUBDATA')
 
 
 %# declare variables
+<<<<<<< HEAD
 nsub    = 98;%8; % N subjects
 iterations = 4; 
+=======
+nsub    = 98; %98;%8; % N subjects
+iterations = 6; 
+>>>>>>> 508134f28693faa346790bf69ee3501b801abb4b
 models = 8; 
 param = 8;
 ntrials = 200; %0; %
@@ -158,7 +163,11 @@ end
 toc
 %% save files
 n_iter = num2str(iterations);
+<<<<<<< HEAD
 save('SIMU_RECOVERY_Kool_machine','SimRun')
+=======
+save('SIMU_RECOVERY_Kool_mac','SimRun')
+>>>>>>> 508134f28693faa346790bf69ee3501b801abb4b
 
 %% notes
 
