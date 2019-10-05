@@ -15,13 +15,13 @@ dbstop if error
 cd ~/Project/Kool/scripts/expe1
 
 % load simulation data
-load('SIMU_RECOVERY_Kool_mac_no_param_50_2_1200.mat')
+load('SIMU_RECOVERY_Kool_mac_recovery_W.mat')
 
 %% declare variables
 
-n_fl    = 2; %# number of iteration
+n_fl    = 1; %# number of iteration
 n_mod   = 4; %# number of models
-n_sub = 50;  %# number of subjects
+n_sub = 15;  %# number of subjects
 n_par = 6; %# number of parameters
 
 % pre allocate
@@ -98,7 +98,7 @@ h2 = figure('Units', 'pixels', ...
     'Position', [400 150 600 600]);
 set(h2,'Color',[1,1,1])
 
-LAB = {'\beta_1_M','\alpha_M', '\lambda_M','\omega_1_M','\omega_2_M','\omega_3_M'};
+LAB = {'\beta_1_M','\beta_2_M', '\beta_3_M','\alpha_M', '\lambda_M','\omega_1_M','\omega_2_M','\omega_3_M'};
 
 for k = 1:n_par
     
