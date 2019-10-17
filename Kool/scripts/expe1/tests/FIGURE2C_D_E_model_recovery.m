@@ -15,15 +15,14 @@ dbstop if error
 cd ~/Project/Kool/scripts/expe1
 
 % load simulation data
-load('SIMU_RECOVERY_Kool_mac_no_param_50_2_1200.mat')
+load('SIMU_RECOVERY_Kool_nested_tests')
 
 %% declare variables
-
+n_sub = 2;  %# number of subjects
 n_fl    = 2; %# number of iteration
-n_mod   = 4; %# number of models
-n_sub = 50;  %# number of subjects
+n_mod   = 6; %# number of models
 n_par = 6; %# number of parameters
-
+n_cor = 5; %the model we want to chc the corr
 % pre allocate
 bm      = zeros(n_mod,n_mod,n_fl);  % best model
 ep      = zeros(n_mod,n_mod,n_fl);  % exceedance probability
@@ -44,8 +43,8 @@ for k_fl = 1:n_fl
     end
     
     % get parameters from most complex model for recovery analysis
-    pn_modest(:,:,k_fl)    = SimRun(k_fl).recov_param(n_mod).val(:,n_mod,:); % 
-    pn_modsims(:,:,k_fl)   = squeeze(SimRun(k_fl).simu_param(:,n_mod,:));   % sims params
+    pn_modest(:,:,k_fl)    = SimRun(k_fl).recov_param(n_cor).val(:,n_cor,:); % 
+    pn_modsims(:,:,k_fl)   = squeeze(SimRun(k_fl).simu_param(:,n_cor,:));   % sims params
     
     % compute correlations between parameters used to simulate the data,
     % and recovered (i.e. estimated) parameters
@@ -98,7 +97,7 @@ h2 = figure('Units', 'pixels', ...
     'Position', [400 150 600 600]);
 set(h2,'Color',[1,1,1])
 
-LAB = {'\beta_1_M','\alpha_M', '\lambda_M','\omega_1_M','\omega_2_M','\omega_3_M'};
+LAB = {'\beta_1_M','\alpha_M', '\lambda_M','\omega_1_M','\omega_2_M','\omega_3_M'}; %};
 
 for k = 1:n_par
     
@@ -122,34 +121,34 @@ for k = 1:n_par
             x = 0:0.2:10;
             distr_tp = gampdf(x,4,.5);
             xl = [0 10];
+        %case 2
+            %x = 0:0.2:10;
+            %distr_tp = gampdf(x,4,.5);
+            %xl = [0 10];
+        %case 3
+           % x = 0:0.01:1;
+           %5distr_tp = gampdf(x,4,.5);
+            %xl = [0 10];
         case 2
-            x = 0:0.2:10;
-            distr_tp = gampdf(x,4,.5);
-            xl = [0 10];
-        case 3
-            x = 0:0.01:1;
-            distr_tp = gampdf(x,4,.5);
-            xl = [0 10];
-        case 4
             x = 0:0.01:1;
             distr_tp = betapdf(x,5,1.5);
             xl = [0 1];
+        case 3
+            x = 0:0.01:1;
+            distr_tp = normpdf(x,0.5,0.1);
+            xl = [0 1];
+        case 4
+            x = 0:0.01:1;
+            distr_tp = unifpdf(x,0,1);
+            xl = [0 1];
         case 5
-            x = -2:0.1:6;
-            distr_tp = normpdf(x,0,1);
-            xl = [-2 6];
+            x = 0:0.01:1;
+            distr_tp = unifpdf(x,0,1);
+            xl = [0 1];
         case 6
-            x = -2:0.1:6;
-            distr_tp = normpdf(x,0,1);
-            xl = [-2 6];
-        case 7
-            x = -2:0.1:6;
-            distr_tp = normpdf(x,0,1);
-            xl = [-2 6];
-        case 8
-            x = -2:0.1:6;
-            distr_tp = normpdf(x,0,1);
-            xl = [-2 6];
+            x = 0:0.01:1;
+            distr_tp = unifpdf(x,0,1);
+            xl = [0 1];
     end
     
     ax1 = gca; % current axes

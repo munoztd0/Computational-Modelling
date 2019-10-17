@@ -12,7 +12,7 @@ function s = logsumexp(x,dim)
     % subtract the largest in each column
     y = max(x,[],dim);
     x = bsxfun(@minus,x,y);
-    s = y + log(sum(exp(x),dim));
+    io1s = y + log(sum(exp(x),dim));
     i = find(~isfinite(y));
     if ~isempty(i)
         s(i) = y(i);
