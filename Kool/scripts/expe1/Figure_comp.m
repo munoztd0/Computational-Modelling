@@ -15,17 +15,14 @@ dbstop if error
 cd ~/Project/Kool/scripts/expe1
 
 % load simulation data
-load('SIMU_RECOVERY_Kool_MBvW_30_same_param.mat')
+load('SIMU_Kool_test.mat')
 
 %% declare variables
-n_sub = 98;  %# number of subjects
-n_fl    = 50; %# number of iteration
-n_mod   = 2; %# number of models
-n_par = 3; %# number of parameters
-n_corr = 2; %choose which corr param
-
-
-LAB = {'\beta_1_M','\alpha_M', '\lambda_M'}; %};
+n_sub   = 1;  %# number of subjects
+n_fl    = 1; %# number of iteration
+n_mod   = 10; %# number of models
+n_par   = 7; %# number of parameters
+n_cor   = 10; %#item for corr
 
 % pre allocate
 bm      = zeros(n_mod,n_mod,n_fl);  % best model
@@ -34,6 +31,9 @@ pn_modest  = NaN(n_sub,n_par,n_fl);
 pn_modsims = NaN(n_sub,n_par,n_fl);
 Rest    = NaN(n_par,n_par,n_fl);
 R2est   = NaN(n_par,n_par,n_fl);
+
+LAB = {'\beta_1_M','\beta_2_M','\alpha1_M', '\alpha2_M','\omega_1_M','\omega_2_M','\lambda_M'}; %};
+
 
 for k_fl = 1:n_fl
     
@@ -47,9 +47,8 @@ for k_fl = 1:n_fl
     end
     
     % get parameters from most complex model for recovery analysis
-    
-    pn_modest(:,:,k_fl)    = SimRun(k_fl).recov_param(n_corr).val(:,n_corr,:); % 
-    pn_modsims(:,:,k_fl)   = squeeze(SimRun(k_fl).simu_param(:,n_corr,:));   % sims params
+    pn_modest(:,:,k_fl)    = SimRun(k_fl).recov_param(n_cor).val(:,n_cor,:); % 
+    pn_modsims(:,:,k_fl)   = squeeze(SimRun(k_fl).simu_param(:,n_cor,:));   % sims params
     
     % compute correlations between parameters used to simulate the data,
     % and recovered (i.e. estimated) parameters
@@ -108,9 +107,7 @@ for k = 1:n_par
     subplot(4,2,k)
     hold on
     
-%         B1  = random('Gamma',4,.5,n,1);
-%         B2  = random('Gamma',4,.5,n,1);
-%         B3  = random('Gamma',4,.5,n,1);
+%         B  = random('Gamma',4,.5,n,1);
 %         
 %         LR = random('Beta',5,1.5,n,1);
 %         
@@ -120,30 +117,22 @@ for k = 1:n_par
 %         W2  = random('Uniform',0,1,n,1);
 %         W3  = random('Uniform',0,1,n,1);
 
-    switch k
+   switch k
         case 1
             x = 0:0.2:10;
             distr_tp = gampdf(x,4,.5);
             xl = [0 10];
-        %case 2
-            %x = 0:0.2:10;
-            %distr_tp = gampdf(x,4,.5);
-            %xl = [0 10];
-        %case 3
-           % x = 0:0.01:1;
-           %5distr_tp = gampdf(x,4,.5);
-            %xl = [0 10];
         case 2
+            x = 0:0.2:10;
+            distr_tp = gampdf(x,4,.5);
+            xl = [0 10];
+        case 3
             x = 0:0.01:1;
             distr_tp = betapdf(x,5,1.5);
             xl = [0 1];
-        case 3
-            x = 0:0.01:1;
-            distr_tp = normpdf(x,0.5,0.1);
-            xl = [0 1];
         case 4
             x = 0:0.01:1;
-            distr_tp = unifpdf(x,0,1);
+            distr_tp = betapdf(x,5,1.5);
             xl = [0 1];
         case 5
             x = 0:0.01:1;
@@ -153,6 +142,11 @@ for k = 1:n_par
             x = 0:0.01:1;
             distr_tp = unifpdf(x,0,1);
             xl = [0 1];
+        case 7
+            x = 0:0.01:1;
+            distr_tp = normpdf(x,0.5,0.1);
+            xl = [0 1];
+
     end
     
     ax1 = gca; % current axes
@@ -286,3 +280,14 @@ nanmean(r2Diag(:))
 r2Ndiag = (ones(n_par)-eye(n_par)).*r2mat_avg;
 r2Ndiag(r2Ndiag==0) = NaN;
 nanmean(r2Ndiag(:))
+
+for k = 1:n_mod
+    for i = 1:n_fl
+        for j = 1:n_mod
+            mean_it(i,j) =  mean(SimRun(i).rewardrate(j).val);
+        end
+    end
+    reward_rate(k) = mean(mean_it(:,k));
+end    
+
+reward_rate

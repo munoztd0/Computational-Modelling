@@ -15,18 +15,14 @@ dbstop if error
 cd ~/Project/Kool/scripts/expe1
 
 % load simulation data
-load('SIMU_RECOVERY_Kool_MBvW_30_same_param.mat')
+load('SIMU_RECOVERY_Kool_nested_20.mat')
 
 %% declare variables
-n_sub = 98;  %# number of subjects
-n_fl    = 50; %# number of iteration
-n_mod   = 2; %# number of models
-n_par = 3; %# number of parameters
-n_corr = 2; %choose which corr param
-
-
-LAB = {'\beta_1_M','\alpha_M', '\lambda_M'}; %};
-
+n_sub = 1;  %# number of subjects
+n_fl    = 2; %# number of iteration
+n_mod   = 4; %# number of models
+n_par = 5; %# number of parameters
+n_cor = 2; %item for corr
 % pre allocate
 bm      = zeros(n_mod,n_mod,n_fl);  % best model
 ep      = zeros(n_mod,n_mod,n_fl);  % exceedance probability
@@ -34,6 +30,9 @@ pn_modest  = NaN(n_sub,n_par,n_fl);
 pn_modsims = NaN(n_sub,n_par,n_fl);
 Rest    = NaN(n_par,n_par,n_fl);
 R2est   = NaN(n_par,n_par,n_fl);
+
+LAB = {'\beta_1_M','\alpha_M', '\omega_1_M','\omega_2_M','\omega_3_M'}; %};
+
 
 for k_fl = 1:n_fl
     
@@ -47,9 +46,8 @@ for k_fl = 1:n_fl
     end
     
     % get parameters from most complex model for recovery analysis
-    
-    pn_modest(:,:,k_fl)    = SimRun(k_fl).recov_param(n_corr).val(:,n_corr,:); % 
-    pn_modsims(:,:,k_fl)   = squeeze(SimRun(k_fl).simu_param(:,n_corr,:));   % sims params
+    pn_modest(:,:,k_fl)    = SimRun(k_fl).recov_param(n_cor).val(:,n_cor,:); % 
+    pn_modsims(:,:,k_fl)   = squeeze(SimRun(k_fl).simu_param(:,n_cor,:));   % sims params
     
     % compute correlations between parameters used to simulate the data,
     % and recovered (i.e. estimated) parameters
@@ -139,7 +137,7 @@ for k = 1:n_par
             xl = [0 1];
         case 3
             x = 0:0.01:1;
-            distr_tp = normpdf(x,0.5,0.1);
+            distr_tp = unifpdf(x,0,1);
             xl = [0 1];
         case 4
             x = 0:0.01:1;
@@ -261,11 +259,8 @@ for k = 1:2
     imagesc(flipud(mat_tp))
     ylabel('parameter #')
     xlabel('parameter #')
-    set(gca,'YTick',[1:n_par],...
-        'XTick',[1:n_par],...
-        'XTickLabel',LAB,...
+    set(gca,'XTickLabel',LAB,...
         'YTickLabel',fliplr(LAB))
-        
     c = colorbar;
     c.Label.String = lbl;
     caxis(cax)

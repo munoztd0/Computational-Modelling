@@ -22,7 +22,7 @@ n_sub   = 30;  %# number of subjects
 n_fl    = 10; %# number of iteration
 n_mod   = 2; %# number of models
 n_par   = 5; %# number of parameters
-n_corr = 1; %choose which corr param
+n_corr = 2; %choose which corr param
 % pre allocate
 bm      = zeros(n_mod,n_mod,n_fl);  % best model
 ep      = zeros(n_mod,n_mod,n_fl);  % exceedance probability
@@ -36,7 +36,7 @@ for k_fl = 1:n_fl
     % get model comparison result for each model simulation (/confussion
     % matrices)
     for k_sim = 1:n_mod       
-        bmc_res                 = SimRun(k_fl).BMC_output(k_sim);
+        bmc_res                 = SimRun(k_fl).BMC_outputAIC(k_sim);
         ep(k_sim,:,k_fl)        = 100*bmc_res.out.ep;    
         [~,ln_max]              = max(bmc_res.out.ep);
         bm(k_sim,ln_max,k_fl)   = 1;

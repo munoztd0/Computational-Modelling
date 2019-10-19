@@ -15,13 +15,13 @@ dbstop if error
 cd ~/Project/Kool/scripts/expe1
 
 % load simulation data
-load('SIMU_RECOVERY_Kool_MBvW_30_same_param.mat')
+load('MB_VS_MF_98x50.mat')
 
 %% declare variables
 n_sub = 98;  %# number of subjects
 n_fl    = 50; %# number of iteration
 n_mod   = 2; %# number of models
-n_par = 3; %# number of parameters
+n_par = 3;  %# number of parameters
 n_corr = 2; %choose which corr param
 
 
@@ -286,3 +286,14 @@ nanmean(r2Diag(:))
 r2Ndiag = (ones(n_par)-eye(n_par)).*r2mat_avg;
 r2Ndiag(r2Ndiag==0) = NaN;
 nanmean(r2Ndiag(:))
+
+for k = 1:n_mod
+    for i = 1:n_fl
+        for j = 1:n_mod
+            mean_it(i,j) =  mean(SimRun(i).rewardrate(j).val);
+        end
+    end
+    reward_rate(k) = mean(mean_it(:,k));
+end    
+
+reward_rate
