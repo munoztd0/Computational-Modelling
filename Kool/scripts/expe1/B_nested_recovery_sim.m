@@ -35,10 +35,10 @@ load('SUBDATA')
 
 
 %# declare variables
-nsub    = 10; 
-iterations = 2; 
-models = 6; 
-param = 6;
+nsub    = 98; 
+iterations = 20; 
+models = 4; 
+param = 5;
 ntrials = 200; 
 
 
@@ -46,28 +46,26 @@ ntrials = 200;
 options     = optimset('Algorithm', 'interior-point', 'MaxIter', 1000000);
 
 %% parameteres ; 
-%beta1, beta2, beta3, alpha, lamda,  w1, w2, w3
-LB = [0 0 0 0 0 0]; % lower bounds 
+%beta1, alpha,  w1, w2, w3
+LB = [0 0 0 0 0]; % lower bounds 
 %UB = [20 20 20 1 1 1 1 1]; %  upper bounds = 20 ok but random UP = 4??
-UB = [10 1 1 1 1 1]; 
+UB = [10 1 1 1 1]; 
 %??U(0,+2).
 %they found w r = 0.68, p < 0.001 ?, r = 0.25, p < 0.001,  ?, r = 0.82, p < 0.001, and eligibility trace decay parameter ?, r = 0.27, p < 0.001
 
 %notes
 %simu.recov -> column = model // val = param
-KK = [1 1 0 1 0 0;...
-      1 1 0 1 1 0;... %5 Mix model simple
-      1 1 0 1 1 1;...
-      1 1 0 0 1 1;... %3 Mix 2 w
-      1 1 0 1 0 1;...
-      1 1 1 1 1 1];%...;... %5 Mix model simple
+KK = [1 1 1 0 0;... tous le meme w
+      1 1 0 1 1;... stage0 at 0.5 and 1 and low
+      1 1 1 0 1;... stage1 at 0.5 and 0 and low . BAD
+      1 1 1 0 1];%  same w for stage 0 and 1 + low
 %... %6 Mix model simple     3beta 1weight
       %1 1 1 1 1 1];%;... %7 Mix model simple     1beta 3weight
       %1 1 1 1 1 1 1 1]; %8 Mix model exhaustive
 %     1 0 1 0 1 1 0 0;... %The transition-dependent learning rates (TDLR) algorithm
 %     1 0 1 0 1 1 0 0];... %The unlucky-symbol algorithm
 
-nfpm = [3 4 5 4 4 6];%5 6];
+nfpm = [3 4 4 4];%5 6];
 %nfpm = [3 3 3 3 3 3 3 3];
 %nfpm = [3 3 5 5 4 6 6 8]; % X X];
 %nfpm = [4 4 6 6 4 6 6 8]; % X X];
@@ -93,7 +91,7 @@ for k_it = 1:iterations %# 50 before
         
         LR = random('Beta',5,1.5,n,1);
         
-        LAMBDA  = random('Normal',0.5,0.1,n,1); %makes sense?
+        %LAMBDA  = random('Normal',0.5,0.1,n,1); %makes sense?
         
         
         W1  = random('Uniform',0,1,n,1);
@@ -108,7 +106,7 @@ for k_it = 1:iterations %# 50 before
             con  = data.high_effort; %%% 0 or 1 %cor  = round((data(:,3)==1) +1); %# block number? WELLLLL ****
 
             % simulate behavior with sampled parameters . // B2(k_sub), B3(k_sub),
-            SimRun(k_it).simu_param(k_sub,k_sim,:)  = [B1(k_sub), LR(k_sub), LAMBDA(k_sub), W1(k_sub), W2(k_sub), W3(k_sub)].*KK(k_sim,:); %
+            SimRun(k_it).simu_param(k_sub,k_sim,:)  = [B1(k_sub), LR(k_sub), W1(k_sub), W2(k_sub), W3(k_sub)].*KK(k_sim,:); %
 
             addpath ~/Project/mfit/
             cd ~/Project/Kool/scripts/expe1
@@ -125,7 +123,7 @@ for k_it = 1:iterations %# 50 before
             % re-estimate parameters with all possible models
             for k_est=1:models
                   
-                x0                                                  = [10*rand() rand() rand() rand() rand() rand()];% rand() rand()]; % 10*rand() 10*rand()% parameter initial value ?ok at ten?
+                x0                                                  = [10*rand() rand() rand() rand() rand()];% rand() rand()]; % 10*rand() 10*rand()% parameter initial value ?ok at ten?
                 [parameters_rep(1,1:param),ll_rep]                  = fmincon(@(x) C_iii_nested_model_ll(x,con, output, k_est),x0,[],[],[],[],LB,UB,[],options); %changed out by rews
                                                                   % [x,fval] = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options)
                 SimRun(k_it).recov_param(k_sim).val(k_sub,k_est,:)  = parameters_rep.*KK(k_est,:);
@@ -162,7 +160,7 @@ end
 toc
 %% save files
 n_iter = num2str(iterations);
-save('SIMU_RECOVERY_Kool_nested_tests','SimRun')
+save('SIMU_RECOVERY_Kool_nested_20','SimRun')
 
 %% notes
 

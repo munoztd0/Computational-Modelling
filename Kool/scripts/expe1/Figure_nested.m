@@ -15,14 +15,14 @@ dbstop if error
 cd ~/Project/Kool/scripts/expe1
 
 % load simulation data
-load('SIMU_RECOVERY_Kool_nested_tests.mat')
+load('Kool_nested_11.mat')
 
 %% declare variables
-n_sub = 2;  %# number of subjects
-n_fl    = 2; %# number of iteration
-n_mod   = 6; %# number of models
-n_par = 6; %# number of parameters
-n_cor = 4; %item for corr
+n_sub = 98;  %# number of subjects
+n_fl    = 11; %# number of iteration
+n_mod   = 4; %# number of models
+n_par = 5; %# number of parameters
+n_cor = 2; %item for corr
 % pre allocate
 bm      = zeros(n_mod,n_mod,n_fl);  % best model
 ep      = zeros(n_mod,n_mod,n_fl);  % exceedance probability
@@ -31,7 +31,7 @@ pn_modsims = NaN(n_sub,n_par,n_fl);
 Rest    = NaN(n_par,n_par,n_fl);
 R2est   = NaN(n_par,n_par,n_fl);
 
-LAB = {'\beta_1_M','\alpha_M', '\lambda_M','\omega_1_M','\omega_2_M','\omega_3_M'}; %};
+LAB = {'\beta_1_M','\alpha_M', '\omega_1_M','\omega_2_M','\omega_3_M'}; %};
 
 
 for k_fl = 1:n_fl
