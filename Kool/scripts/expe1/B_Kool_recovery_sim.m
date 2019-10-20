@@ -17,8 +17,8 @@ close all
 rng('shuffle')
 
 % % %%%
-% cd ~/Project/VBA-toolbox/
-% VBA_setup()
+cd ~/Project/VBA-toolbox/
+VBA_setup()
 % 
 cd ~/Project/Kool/data/
 % %%%
@@ -38,9 +38,9 @@ load('PARAMS')
 
 
 %# declare variables
-nsub    = 98; 
+nsub    = 10; 
 iterations = 10; 
-models = 10; 
+models = 7; 
 param = 7;
 ntrials = 200; 
 
@@ -52,27 +52,24 @@ options     = optimset('Algorithm', 'interior-point', 'MaxIter', 1000000);
 %beta1, beta2, alpha1, alpha2, w1, w2, lambda
 LB = [0 0 0 0 0 0 0]; % lower bounds 
 %UB = [20 20 20 1 1 1 1 1]; %  upper bounds = 20 ok but random UP = 4??
-UB = [10 10 1 1 1 1 1]; 
+UB = [10 10 10 1 1 1 1]; 
 %in their simulation they found w r = 0.68, p < 0.001, r = 0.25, p < 0.001, r = 0.82, p < 0.001, and eligibility trace decay parameter, r = 0.27, p < 0.001
 
 %notes
 %so for now stage 0 at 0.5
-KK = [1 0 1 0 1 0 0;... 1w  / no lambda / 1beta 1 alpha
-      1 0 1 0 1 1 0;... 2w  / no lambda  / 1beta 1 alpha
-      1 0 1 0 1 0 1;... 1w  + lambda  / 1beta 1 alpha
-      1 0 1 0 1 1 1;... 2w  + lambda  / 1beta 1 alpha 
-      1 1 1 0 1 1 0;... 2 betas 2w  / no lambda  / 1 alpha
-      1 1 1 0 1 1 1;... 2 betas 2w  + lambda  / 1 alpha
-      1 0 1 1 1 1 0;... 2 alphas 2w  / no lambda  / 1beta
-      1 0 1 1 1 1 1;... 2 alphas 2w  + lambda   / 1beta       
-      1 1 1 1 1 1 0;... full 6  / no lambda
-      1 1 1 1 1 1 1];%... full 6 + lambda   
+KK = [1 0 0 1 0 1 1;... 2 - 2w  / no lambda  / 1beta 1 alpha
+      1 1 0 1 0 1 1;... 3 - 2 betas / 1 alpha/ 2w  / no lambda 
+      1 1 1 1 0 1 1;... 4 - 3 betas / 1 alpha/ 2w  / no lambda  
+      1 0 0 1 1 1 1;... 5 - 2 alphas / 1beta/ 2w  / no lambda  
+      1 1 0 1 1 1 1;... 6 - 2 alphas / 2beta / 2w  / no lambda
+      1 1 1 1 1 1 1;... 7 - full 7  / no lambda
+      1 1 1 1 1 1 1];%... 8 - full 7  / no lambda w0
       
 
 %     1 0 1 0 1 1 0 0;... %The transition-dependent learning rates (TDLR) algorithm
 %     1 0 1 0 1 1 0 0];... %The unlucky-symbol algorithm
 
-nfpm = [3 4 4 5 5 6 5 6 6 7];
+nfpm = [4 5 6 5 6 7 7];
 %nfpm = [3 3 3 3 3 3 3 3 3 3];
 
   
@@ -83,28 +80,30 @@ for k_it = 1:iterations %# 50 before
     tic
     clear ll ll_rep bic recov_param
     close all force
-       
-    % simulate with all possible models
-    for k_sim = 1:models
-  
+    
         % sample parameters %should the same subject have the same
         % parameters?
         n   = nsub;
         
         B1  = random('Gamma',4,.5,n,1);
         B2  = random('Gamma',4,.5,n,1);
+        B3  = random('Gamma',4,.5,n,1);
         %B1 = median(params.model(:,1));
+        %β ∼ Gamma(4.82, 0.88)
 
         LR1 = random('Beta',5,1.5,n,1);
         LR2 = random('Beta',5,1.5,n,1);
         %LR = median(params.model(:,2));
         
-        LAMBDA  = random('Normal',0.5,0.1,n,1); %makes sense?
+        %LAMBDA  = random('Normal',0.5,0.1,n,1); %makes sense?
         %LAMBDA = median(params.model(:,3));
         
         W1  = random('Uniform',0,1,n,1);
         W2  = random('Uniform',0,1,n,1);
-     
+       
+    % simulate with all possible models
+    for k_sim = 1:models
+  
 
         % simulate data
         for k_sub=1:nsub
@@ -114,7 +113,7 @@ for k_it = 1:iterations %# 50 before
             con  = data.high_effort; %%% 
 
             % simulate behavior with sampled parameters . // B2(k_sub), B3(k_sub),
-            SimRun(k_it).simu_param(k_sub,k_sim,:)  = [B1(k_sub), B2(k_sub), LR1(k_sub), LR2(k_sub), W1(k_sub), W2(k_sub),LAMBDA(k_sub)].*KK(k_sim,:); %
+            SimRun(k_it).simu_param(k_sub,k_sim,:)  = [B1(k_sub), B2(k_sub), B3(k_sub), LR1(k_sub), LR2(k_sub), W1(k_sub), W2(k_sub)].*KK(k_sim,:); %
 
             addpath ~/Project/mfit/
             cd ~/Project/Kool/scripts/expe1
@@ -131,7 +130,7 @@ for k_it = 1:iterations %# 50 before
             % re-estimate parameters with all possible models
             
             for k_est=1:models 
-                x0                                                  = [10*rand() 10*rand() rand() rand() rand() rand() rand()];% parameter initial value ?ok at ten?            
+                x0                                                  = [10*rand() 10*rand() 10*rand() rand() rand() rand() rand()];% parameter initial value ?ok at ten?            
                 [parameters_rep(1,1:param),ll_rep]                  = fmincon(@(x) C_iii_kool_model_ll(x,con, output, k_est),x0,[],[],[],[],LB,UB,[],options); %changed out by rews
                                                % [x,fval] = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options)
                 SimRun(k_it).recov_param(k_sim).val(k_sub,k_est,:)  = parameters_rep(1,1:param).*KK(k_est,:);
@@ -168,7 +167,7 @@ end
 toc
 %% save files
 n_iter = num2str(iterations);
-save('SIMU_Kool_test_98_10','SimRun')
+save('SIMU_Kool_test_new_20','SimRun')
 
 %% notes
 

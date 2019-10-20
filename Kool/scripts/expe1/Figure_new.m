@@ -15,14 +15,14 @@ dbstop if error
 cd ~/Project/Kool/scripts/expe1
 
 % load simulation data
-load('SIMU_Kool_test_1.mat')
+load('SIMU_Kool_test_new_2.mat')
 
 %% declare variables
-n_sub   = 98;  %# number of subjects
-n_fl    = 1; %# number of iteration
-n_mod   = 10; %# number of models
+n_sub   = 2;  %# number of subjects
+n_fl    = 2; %# number of iteration
+n_mod   = 7; %# number of models
 n_par   = 7; %# number of parameters
-n_cor   = 1; %#item for corr
+n_cor   = 6; %#item for corr
 
 % pre allocate
 bm      = zeros(n_mod,n_mod,n_fl);  % best model
@@ -32,12 +32,12 @@ pn_modsims = NaN(n_sub,n_par,n_fl);
 Rest    = NaN(n_par,n_par,n_fl);
 R2est   = NaN(n_par,n_par,n_fl);
 
-LAB = {'\beta_1_M','\beta_2_M','\alpha1_M', '\alpha2_M','\omega_1_M','\omega_2_M','\lambda_M'}; %};
+LAB = {'\beta_1_M','\beta_2_M', '\beta_3_M','\alpha1_M', '\alpha2_M','\omega_1_M','\omega_2_M'}; %};
 
 
 for k_fl = 1:n_fl
     
-    % get model comparison result for each model simulation (/confusion
+    % get model comparison result for each model simulation (/confussion
     % matrices)
     for k_sim = 1:n_mod       
         bmc_res                 = SimRun(k_fl).BMC_outputAIC(k_sim);

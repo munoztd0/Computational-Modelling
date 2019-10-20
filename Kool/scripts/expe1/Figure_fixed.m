@@ -15,14 +15,14 @@ dbstop if error
 cd ~/Project/Kool/scripts/expe1
 
 % load simulation data
-load('SIMU_Kool_test_1.mat')
+load('SIMU_Kool_test_fixed.mat')
 
 %% declare variables
-n_sub   = 98;  %# number of subjects
+n_sub   = 1;  %# number of subjects
 n_fl    = 1; %# number of iteration
-n_mod   = 10; %# number of models
-n_par   = 7; %# number of parameters
-n_cor   = 1; %#item for corr
+n_mod   = 4; %# number of models
+n_par   = 6; %# number of parameters
+n_cor   = 4; %#item for corr
 
 % pre allocate
 bm      = zeros(n_mod,n_mod,n_fl);  % best model
@@ -32,7 +32,7 @@ pn_modsims = NaN(n_sub,n_par,n_fl);
 Rest    = NaN(n_par,n_par,n_fl);
 R2est   = NaN(n_par,n_par,n_fl);
 
-LAB = {'\beta_1_M','\beta_2_M','\alpha1_M', '\alpha2_M','\omega_1_M','\omega_2_M','\lambda_M'}; %};
+LAB = {'\beta_1_M','\beta_2_M','\alpha1_M', '\alpha2_M','\omega_1_M','\omega_2_M'}; %};
 
 
 for k_fl = 1:n_fl
