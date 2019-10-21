@@ -21,6 +21,10 @@ output.S = zeros(N,2);
 for t = 1:N
     
     s1 = ceil(rand*2);
+    display(s1)
+    display(Tm{s1})
+    
+    display(Tm{s1}*Q2)
     
     Qmb = Tm{s1}*Q2;                              % compute model-based value function
     
@@ -31,13 +35,13 @@ for t = 1:N
     
     s2 = a;
     
-    dtQ(2) = Q2(s3) - Qmf(s3,a);                  % backup with actual choice (i.e., sarsa)
-    Qmf(s3,a) = Qmf(s3,a) + lr*dtQ(3);            % update TD value function
+    dtQ(1) = Q2(s2) - Qmf(s1,a);                  % backup with actual choice (i.e., sarsa)
+    Qmf(s1,a) = Qmf(s1,a) + lr*dtQ(1);            % update TD value function
     
-    dtQ(3) = rews(t,s3) - Q2(s3);                 % prediction error (2nd choice)
+    dtQ(2) = rews(t,s2) - Q2(s2);                 % prediction error (2nd choice)
     
-    Q2(s3) = Q2(s3) + lr*dtQ(3);                  % update TD value function
-    Qmf(s2,a) = Qmf(s2,a) + lambda*lr*dtQ(3);     % eligibility trace
+    Q2(s2) = Q2(s2) + lr*dtQ(2);                  % update TD value function
+    Qmf(s1,a) = Qmf(s1,a) + lambda*lr*dtQ(2);     % eligibility trace
     
     % store stuff
     output.A(t,1) = a;

@@ -15,14 +15,14 @@ dbstop if error
 cd ~/Project/Kool/scripts/expe1
 
 % load simulation data
-load('SIMU_Kool_test_fixed.mat')
+load('SIMU_Kool_onlyW_10.mat')
 
 %% declare variables
-n_sub   = 1;  %# number of subjects
-n_fl    = 1; %# number of iteration
-n_mod   = 4; %# number of models
-n_par   = 6; %# number of parameters
-n_cor   = 4; %#item for corr
+n_sub   = 10;  %# number of subjects
+n_fl    = 10; %# number of iteration
+n_mod   = 2; %# number of models
+n_par   = 3; %# number of parameters
+n_cor   = 1; %#item for corr
 
 % pre allocate
 bm      = zeros(n_mod,n_mod,n_fl);  % best model
@@ -32,7 +32,7 @@ pn_modsims = NaN(n_sub,n_par,n_fl);
 Rest    = NaN(n_par,n_par,n_fl);
 R2est   = NaN(n_par,n_par,n_fl);
 
-LAB = {'\beta_1_M','\beta_2_M','\alpha1_M', '\alpha2_M','\omega_1_M','\omega_2_M'}; %};
+LAB = {'\omega_1_M','\omega_2_M','\omega_3_M'}; %};
 
 
 for k_fl = 1:n_fl
@@ -118,33 +118,18 @@ for k = 1:n_par
 %         W3  = random('Uniform',0,1,n,1);
 
    switch k
+        
         case 1
-            x = 0:0.2:10;
-            distr_tp = gampdf(x,4,.5);
-            xl = [0 10];
+            x = 0:0.01:1;
+            distr_tp = unifpdf(x,0,1);
+            xl = [0 1];
         case 2
-            x = 0:0.2:10;
-            distr_tp = gampdf(x,4,.5);
-            xl = [0 10];
+            x = 0:0.01:1;
+            distr_tp = unifpdf(x,0,1);
+            xl = [0 1];
         case 3
             x = 0:0.01:1;
-            distr_tp = betapdf(x,5,1.5);
-            xl = [0 1];
-        case 4
-            x = 0:0.01:1;
-            distr_tp = betapdf(x,5,1.5);
-            xl = [0 1];
-        case 5
-            x = 0:0.01:1;
             distr_tp = unifpdf(x,0,1);
-            xl = [0 1];
-        case 6
-            x = 0:0.01:1;
-            distr_tp = unifpdf(x,0,1);
-            xl = [0 1];
-        case 7
-            x = 0:0.01:1;
-            distr_tp = normpdf(x,0.5,0.1);
             xl = [0 1];
 
     end

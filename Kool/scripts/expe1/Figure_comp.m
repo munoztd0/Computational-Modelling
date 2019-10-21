@@ -15,14 +15,14 @@ dbstop if error
 cd ~/Project/Kool/scripts/expe1
 
 % load simulation data
-load('SIMU_Kool_test_1.mat')
+load('SIMU_Kool_test_new_20.mat')
 
 %% declare variables
-n_sub   = 98;  %# number of subjects
-n_fl    = 1; %# number of iteration
-n_mod   = 10; %# number of models
+n_sub   = 10;  %# number of subjects
+n_fl    = 10; %# number of iteration
+n_mod   = 7; %# number of models
 n_par   = 7; %# number of parameters
-n_cor   = 1; %#item for corr
+n_cor   = 7; %#item for corr
 
 % pre allocate
 bm      = zeros(n_mod,n_mod,n_fl);  % best model
