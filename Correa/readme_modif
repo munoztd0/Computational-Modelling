@@ -1,0 +1,23 @@
+Codes and data – Correa, et al. (2018) Journal of Neuroscience
+Maël Lebreton mael.lebreton@unige.ch
+This folder contains all codes and data necessary to reproduce the behavioral analyses and results reported in Correa, et al. (2018) J.Neuro. [Correa CMC, Noorman S, Jiang J, Palminteri S, Cohen MX, Lebreton M*, van Gaal S* (2018). How the level of reward awareness changes the computational and electrophysiological signatures of reinforcement learning. Journal of Neuroscience 8(48):10338 –10348 https://doi.org/10.1523/JNEUROSCI.0457-18.2018]
+Please note that the codes needs Matlab R2014b or a more resent version, with the Statistics and Machine Learning toolbox.
+Cautionary note for Neuroimagers: please note that some neuroimaging toolbox (e.g. SPM, or fieldtrip) contains recoded version of Matlab default functions (e.g. nanmean, tcdf, etc.) which can create some interferences. We advise to temporarily remove such toolboxes from your Matlab paths before running our codes to avoid bugs and compatibility issues.
+Behavioral data is contained in the SUB_DATA.mat file, as SubData(X).data matrices (X: subject number), organized as follow:
+col1: block number
+col2: trial number
+col3: (1=right response rewards most, 3=left response rewards most)
+col4: reward visibility (1=unconscious, 0=conscious)
+col5: reward (1=punishment, 0=reward)
+col6: response (1= left, 2 = right)
+col7: RT
+
+Please get in touch with your experiences with using the codes and data, and any bug reports or issues to me at mael.lebreton@unige.ch
+
+License
+This data and code are being released with a permissive open-source license. You should feel free to use or adapt the utility code as long as you follow the terms of the license, which are enumerated below. If you use the data or some pieces of the present code in a publication we ask that you cite the following paper:
+Correa CMC, Noorman S, Jiang J, Palminteri S, Cohen MX, Lebreton M*, van Gaal S* (2018). How the level of reward awareness changes the computational and electrophysiological signatures of reinforcement learning. Journal of Neuroscience 8(48):10338 –10348 https://doi.org/10.1523/JNEUROSCI.0457-18.2018
+Copyright (c) 2018, Maël Lebreton
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
