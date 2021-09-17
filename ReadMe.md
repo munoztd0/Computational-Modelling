@@ -1,4 +1,4 @@
-This porject consisted in learning a specific data processing method used in the framework of
+This project consisted in learning a specific data processing method used in the framework of
 computational modelling, mainly revolved around the notions of model falsification and
 parameter recovery which are central in a theory-driven approach to modelling. 
 
